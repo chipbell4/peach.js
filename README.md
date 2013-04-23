@@ -47,3 +47,13 @@ Call `Peach.start()` and the entities will behave like you told them to.
 ## In Closing
 Peach is small, lightweight, but simple. It could use extension, and
 minification could help for deployment.
+
+Todo
+----
+* Add support for native mobile events
+* Check that all keys are working
+* Add an intersection test mechanism
+* SVG Branch (or conversion)?
+* A pretty cool example game
+* Performance tests
+    * Max objects before FPS drop
