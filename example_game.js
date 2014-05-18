@@ -9,6 +9,7 @@ function Ball(minR, maxR, x, y, vx, vy)
 	this.vx = vx;
 	this.vy = vy;
 	this.color = 'red';
+	this.acceleration = 200;
 
 	this.alive = true;
 
@@ -20,8 +21,16 @@ function Ball(minR, maxR, x, y, vx, vy)
 	this.update = function()
 	{
 		var dt = Peach.gameState.frameTime / 1000.0;
+
+		/*
+		 * Change the position based on the velocity
+		 */
 		this.x += dt * this.vx;
 		this.y += dt * this.vy;
+
+		/*
+		 * Allow Keyboard input to change the colors
+		 */
 		if(Peach.Input.state.keys.r)
 			this.color = 'red';
 		if(Peach.Input.state.keys.b)
@@ -41,8 +50,22 @@ function Ball(minR, maxR, x, y, vx, vy)
 		if(this.x > Peach.gameState.width) {
 			this.vx = -Math.abs(this.vx);
 		}
-		if(this.y > Peach.gameState.height) {
+		if(this.y > Peach.gameState.height - this.r) {
 			this.vy = -Math.abs(this.vy);
+		}
+
+		/*
+		 * Accelerate towards the bottom
+		 */
+		this.vy += this.acceleration;
+
+		/*
+		 * Prevent the ball from falling through the bottom
+		 */
+		if(this.y > Peach.gameState.height - this.r && this.vy > 0) {
+			this.y = Peach.gameState.height - this.r;
+			this.vy = 0;
+			this.acceleration = 0;
 		}
 	}
 }
