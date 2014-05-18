@@ -41,13 +41,13 @@ function Ball(minR, maxR, x, y, vx, vy)
 		/*
 		 * Bounce off of walls
 		 */
-		if(this.x < 0) {
+		if(this.x < this.r) {
 			this.vx = Math.abs(this.vx);
 		}
-		if(this.y < 0) {
+		if(this.y < this.r) {
 			this.vy = Math.abs(this.vy);
 		}
-		if(this.x > Peach.gameState.width) {
+		if(this.x > Peach.gameState.width - this.r) {
 			this.vx = -Math.abs(this.vx);
 		}
 		if(this.y > Peach.gameState.height - this.r) {
