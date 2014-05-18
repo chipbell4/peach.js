@@ -9,6 +9,7 @@ function Ball(minR, maxR, x, y, vx, vy)
 	this.vx = vx;
 	this.vy = vy;
 	this.color = 'red';
+	this.acceleration = 200;
 
 	this.alive = true;
 
@@ -20,10 +21,16 @@ function Ball(minR, maxR, x, y, vx, vy)
 	this.update = function()
 	{
 		var dt = Peach.gameState.frameTime / 1000.0;
-		this.r += dt * this.dR;
-		this.dR = Peach.Input.state.mouseIsDown ? -5 : 5;
+
+		/*
+		 * Change the position based on the velocity
+		 */
 		this.x += dt * this.vx;
 		this.y += dt * this.vy;
+
+		/*
+		 * Allow Keyboard input to change the colors
+		 */
 		if(Peach.Input.state.keys.r)
 			this.color = 'red';
 		if(Peach.Input.state.keys.b)
@@ -31,11 +38,37 @@ function Ball(minR, maxR, x, y, vx, vy)
 		if(Peach.Input.state.keys.g)
 			this.color = 'green';
 
-		if(this.x < 0 || this.x > Peach.gameState.width || 
-				this.y < 0 || this.y > Peach.gameState.height)
-		{
-			this.alive = false;
+		/*
+		 * Bounce off of walls
+		 */
+		if(this.x < this.r) {
+			this.vx = Math.abs(this.vx);
 		}
+		if(this.y < this.r) {
+			this.vy = Math.abs(this.vy);
+		}
+		if(this.x > Peach.gameState.width - this.r) {
+			this.vx = -Math.abs(this.vx);
+		}
+		if(this.y > Peach.gameState.height - this.r) {
+			this.vy = -Math.abs(this.vy);
+
+			// clamp the velocity to prevent falling through the floor
+			if(Math.abs(this.vy) < this.acceleration) {
+				this.vy = -this.acceleration;
+			}
+		}
+
+		/*
+		 * Accelerate towards the bottom
+		 */
+		this.vy += this.acceleration;
 		
+		/*
+		 * Listen for mouse events to increase the upward velocity
+		 */
+		if(Peach.Input.state.mouseIsDown) {
+			this.vy -= this.acceleration * 1.2;
+		}
 	}
 }
