@@ -52,29 +52,23 @@ function Ball(minR, maxR, x, y, vx, vy)
 		}
 		if(this.y > Peach.gameState.height - this.r) {
 			this.vy = -Math.abs(this.vy);
+
+			// clamp the velocity to prevent falling through the floor
+			if(Math.abs(this.vy) < this.acceleration) {
+				this.vy = -this.acceleration;
+			}
 		}
 
 		/*
 		 * Accelerate towards the bottom
 		 */
 		this.vy += this.acceleration;
-
+		
 		/*
-		 * Prevent the ball from falling through the bottom
-		 */
-		if(this.y > Peach.gameState.height - this.r && this.vy > 0) {
-			this.y = Peach.gameState.height - this.r;
-			this.vy = 0;
-			this.acceleration = 0;
-		}
-
-		/*
-		 * Listen for mouse events to increase the 
+		 * Listen for mouse events to increase the upward velocity
 		 */
 		if(Peach.Input.state.mouseIsDown) {
-			this.y = (Peach.gameState.height - this.r) >= this.y ? Peach.gameState.height - this.r - 1 : this.y;
-			this.vy -= 400;
-			this.acceleration = 200;
+			this.vy -= this.acceleration * 1.2;
 		}
 	}
 }
