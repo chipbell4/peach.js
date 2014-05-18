@@ -67,5 +67,14 @@ function Ball(minR, maxR, x, y, vx, vy)
 			this.vy = 0;
 			this.acceleration = 0;
 		}
+
+		/*
+		 * Listen for mouse events to increase the 
+		 */
+		if(Peach.Input.state.mouseIsDown) {
+			this.y = (Peach.gameState.height - this.r) >= this.y ? Peach.gameState.height - this.r - 1 : this.y;
+			this.vy -= 400;
+			this.acceleration = 200;
+		}
 	}
 }
