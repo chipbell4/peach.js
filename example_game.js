@@ -29,6 +29,9 @@ function Ball(minR, maxR, x, y, vx, vy)
 		if(Peach.Input.state.keys.g)
 			this.color = 'green';
 
+		/*
+		 * Bounce off of walls
+		 */
 		if(this.x < 0) {
 			this.vx = Math.abs(this.vx);
 		}
