@@ -5,7 +5,13 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 
 gulp.task('default', function() {
-	return gulp.src('src/*.js')
+
+	// Get the paths to application files
+	var application_file_paths = ['peach', 'peach.drawable', 'peach.input', 'peach.primitive'].map(function(file) {
+		return 'src/' + file + '.js';
+	});
+
+	return gulp.src(application_file_paths)
 		.pipe(jshint())
 		.pipe(concat('peach.js'))
 		.pipe(gulp.dest('dist'))

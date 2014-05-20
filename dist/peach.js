@@ -63,7 +63,14 @@ Peach = (function(){
 			Peach.gameState.t2 = new Date().getTime();
 			loop();
 		}
+	};
+})();
 
+
+Peach.Drawable = (function(){
+	return {
+		draw: function(context) {
+		}
 	};
 })();
 
@@ -139,13 +146,6 @@ Peach.Input = (function(){
 			},
 			keys: { },
 		},
-	};
-})();
-
-Peach.Drawable = (function(){
-	return {
-		draw: function(context) {
-		}
 	};
 })();
 
