@@ -1,5 +1,9 @@
 Peach = (function(){
-	// private functionality
+
+	/**
+	 * The main draw routine. Essentially calls the draw routing on
+	 * all entities that are currently alive
+	 */
 	function draw()
 	{
 		Peach.Primitive.clear();
@@ -7,12 +11,21 @@ Peach = (function(){
 		for(var i=0; i<numItems; i++)
 			Peach.entities[i].draw();
 	}
+
+	/**
+	 * The main game loop function. Draws, updates. That's about it
+	 */
 	function loop()
 	{
 		requestAnimFrame(loop);	
 		draw();
 		update();
 	}
+
+	/**
+	 * Calculates the current framerate, and performs the update operation
+	 * on all living Peach entities
+	 */
 	function update()
 	{
 		// update frames
@@ -30,7 +43,9 @@ Peach = (function(){
 
 	}
 
-	// A polyfill for requestAnimFrame
+	/**
+	 * Polyfills the request animation frame function, for "unique" browsers
+	 */
 	window.requestAnimFrame = (function(){
 
 		// Loop over potential vendor specific functions in an attempt to polyfill
@@ -49,12 +64,26 @@ Peach = (function(){
 	})();
 
 	return {
+
+		/**
+		 * The main canvas context for the application
+		 */
 		context: null,
-		// All of the entities in the game
+		
+		/**
+		 * The array of all active entities currently running
+		 */
 		entities: [],
-		// the state of the game (paused, etc.)
+		
+		/**
+		 * The object containing current game state (paused, etc. Really whatever you want)
+		 */
 		gameState: {},
-		// initialization function for the game
+
+		/**
+		 * The main initialization routing for Peach.js. Creates the canvas,
+		 * sets some gameState variables, and sets up input to listen for events
+		 */
 		init: function(canvasID){
 			var canvas = document.getElementById(canvasID);
 			Peach.gameState.width = canvas.width;
@@ -62,7 +91,10 @@ Peach = (function(){
 			Peach.context = canvas.getContext('2d');
 			Peach.Input.init();
 		},
-		// one the game's loaded, start it
+
+		/**
+		 * Starts the game loop running
+		 */
 		start: function(){
 			Peach.gameState.t2 = new Date().getTime();
 			loop();
