@@ -1,10 +1,11 @@
 var gulp = require('gulp');
+var mocha = require('gulp-mocha');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 
-gulp.task('default', function() {
+gulp.task('dist', function() {
 
 	// Get the paths to application files
 	var application_file_paths = ['peach', 'peach.drawable', 'peach.input', 'peach.primitive'].map(function(file) {
@@ -20,3 +21,10 @@ gulp.task('default', function() {
 		.pipe(gulp.dest('dist'))
 		.pipe(concat('peach.min.js'));
 });
+
+gulp.task('mocha', function() {
+	return gulp.src('tests/*.js')
+		.pipe(mocha());
+});
+
+gulp.task('default', ['mocha', 'dist']);
