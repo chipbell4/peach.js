@@ -1,9 +1,9 @@
-var gulp = require('gulp');
-var mocha = require('gulp-mocha');
-var jshint = require('gulp-jshint');
-var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
+var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+var mocha = require('gulp-mocha');
 var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
 
 gulp.task('dist', function() {
 
