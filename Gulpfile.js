@@ -2,6 +2,7 @@ var concat = require('gulp-concat');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
+var mochaPhantomJS = require('gulp-mocha-phantomjs');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 
@@ -12,7 +13,7 @@ gulp.task('lint', function() {
 		.pipe(jshint.reporter('fail'));
 });
 
-gulp.task('dist', ['lint', 'mocha'], function() {
+gulp.task('dist', ['lint', 'test'], function() {
 
 	// Get the paths to application files
 	var application_file_paths = ['peach', 'peach.drawable', 'peach.input', 'peach.geometry', 'peach.primitive'].map(function(file) {
@@ -28,9 +29,9 @@ gulp.task('dist', ['lint', 'mocha'], function() {
 		.pipe(concat('peach.min.js'));
 });
 
-gulp.task('mocha', ['lint'], function() {
-	return gulp.src('tests/*.js')
-		.pipe(mocha());
+gulp.task('test', ['lint'], function() {
+	return gulp.src('tests/index.html')
+		.pipe(mochaPhantomJS());
 });
 
-gulp.task('default', ['mocha', 'lint', 'dist']);
+gulp.task('default', ['test', 'lint', 'dist']);
