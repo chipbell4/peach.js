@@ -231,6 +231,13 @@ Peach.Input = (function(){
 	};
 })();
 
+Peach.Geometry = (function() {
+
+	return {
+	};
+
+})();
+
 /**
  * A set of handy primitive drawing methods
  * TODO: Expand these a little

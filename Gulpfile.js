@@ -15,7 +15,7 @@ gulp.task('lint', function() {
 gulp.task('dist', ['lint', 'mocha'], function() {
 
 	// Get the paths to application files
-	var application_file_paths = ['peach', 'peach.drawable', 'peach.input', 'peach.primitive'].map(function(file) {
+	var application_file_paths = ['peach', 'peach.drawable', 'peach.input', 'peach.geometry', 'peach.primitive'].map(function(file) {
 		return 'src/' + file + '.js';
 	});
 
