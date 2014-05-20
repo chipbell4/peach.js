@@ -30,6 +30,23 @@ Peach = (function(){
 
 	}
 
+	// A polyfill for requestAnimFrame
+	window.requestAnimFrame = (function(){
+
+		// Loop over potential vendor specific functions in an attempt to polyfill
+		var function_names = ['requestAnimationFrame', 'webkitRequestAnimationFrame', 'mozRequestAnimationFrame', 'oRequestAnimationFrame', 'msRequestAnimationFrame'];
+		for(var i = 0; i < 5; i++) {
+			if(window[function_names[i]] !== undefined) {
+				return window[function_names[i]];
+			}
+		}
+
+		// No vendor specific version exists, simply return our polyfill
+		return function(callback){
+			window.setTimeout(callback, 1000 / 60);
+		};
+
+	})();
 
 	return {
 		context: null,
@@ -44,19 +61,6 @@ Peach = (function(){
 			Peach.gameState.height = canvas.height;
 			Peach.context = canvas.getContext('2d');
 			Peach.Input.init();
-			// add animation capabilities
-			window.requestAnimFrame = (function(){
-				return window.requestAnimationFrame ||
-					window.webkitRequestAnimationFrame ||
-					window.mozRequestAnimationFrame    ||
-					window.oRequestAnimationFrame      ||
-					window.msRequestAnimationFrame     ||
-					function(callback){
-						window.setTimeout(callback,
-							1000 / 60);
-					};
-
-			})();
 		},
 		// one the game's loaded, start it
 		start: function(){
