@@ -1,4 +1,9 @@
 Peach.Input = (function(){
+
+	/**
+	 * Handler for a keydown event. Marks the input state as having that
+	 * key down
+	 */
 	function keydown(event)
 	{
 		var keycode;
@@ -7,6 +12,10 @@ Peach.Input = (function(){
 		Peach.Input.state.keys[jsEventCodeToStr[keycode]] = true;
 	}
 	
+	/**
+	 * Handler for a keyup event. Clears the input state for the 
+	 * released key
+	 */
 	function keyup(event)
 	{
 		var keycode;
@@ -15,22 +24,35 @@ Peach.Input = (function(){
 		Peach.Input.state.keys[jsEventCodeToStr[keycode]] = false;
 	}
 
+	/**
+	 * Handler for a mousedown event. Marks the input state to reflect the
+	 * change
+	 */
 	function mousedown(event)
 	{
 		Peach.Input.state.mouseIsDown = true;
 	}
 
+	/**
+	 * Handler for the mouse move event. Marks the input state as so
+	 */
 	function mousemove(event)
 	{
 		Peach.Input.state.mousePosition.x = event.clientX;
 		Peach.Input.state.mousePosition.y = event.clientY;
 	}
 
+	/**
+	 * Handler for mouseup. Marks the mouse as no long being up
+	 */
 	function mouseup(event)
 	{
 		Peach.Input.state.mouseIsDown = false;
 	}
 	
+	/**
+	 * A huge map from js key codes to the keys pressed
+	 */
 	var jsEventCodeToStr = {
 		8:'backspace', 9:'tab', 13:'enter', 16:'shift', 17:'ctrl', 18:'alt',
 		19:'pause', 20:'caps', 27:'esc', 33:'pageup', 34:'pagedown',
@@ -46,6 +68,10 @@ Peach.Input = (function(){
 	};
 
 	return {
+		
+		/**
+		 * Sets up event listeners, and sets up keyboard state
+		 */
 		init: function(){
 			// add keys for every letter to state
 			var keyCount = jsEventCodeToStr.length;
@@ -62,12 +88,29 @@ Peach.Input = (function(){
 			window.onmouseup = mouseup;
 		},
 		
+		/**
+		 * The current representation of input state
+		 */
 		state: {
+
+			/**
+			 * Self-explanatory?
+			 */
 			mouseIsDown: false,
+
+			/**
+			 * Contains the current position of the mouse at all times
+			 */
 			mousePosition: {
 				x: 0,
 				y: 0
 			},
+
+			/**
+			 * The array of keyboard state. For instance, if the 'a' key was currently
+			 * pressed, you can check the value of Peach.Input.state.keys.a and you'll
+			 * get a truthy value back
+			 */
 			keys: { },
 		},
 	};
