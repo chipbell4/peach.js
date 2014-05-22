@@ -1,4 +1,10 @@
 describe('Peach.Geometry.Point', function() {
+
+	// Helper fuzzy compare function
+	var expectToBeRouglyEqual = function(value, expected) {
+		expect( Math.abs( value - expected ) < 0.00001 ).to.be.ok;
+	}
+
 	it('Should exist on the geometry object', function() {
 		expect(Peach.Geometry.Point).to.be.ok;
 	});
@@ -14,8 +20,7 @@ describe('Peach.Geometry.Point', function() {
 		var p = Peach.Geometry.Point.fromPolar(2, Math.PI / 2);
 
 		// Use fuzzy comparison for values, due to roundoff
-		var EPSILON = 0.00001;
-		expect( Math.abs(p.x) < EPSILON ).to.be.ok;
-		expect(Math.abs(p.y - 2) < EPSILON ).to.be.ok;
+		expectToBeRouglyEqual(p.x, 0);
+		expectToBeRouglyEqual(p.y, 2);
 	})
 });
