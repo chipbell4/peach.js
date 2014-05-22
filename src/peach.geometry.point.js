@@ -24,5 +24,19 @@ Peach.Geometry.Point = (function() {
 		return p;
 	};
 
+	/**
+	 * Calculates the dot product of two vectors
+	 */
+	Point.prototype.dot = function(other_point) {
+		return this.x * other_point.x + this.y * other_point.y;
+	};
+
+	/**
+	 * Calculates the magnitude of a vector
+	 */
+	Point.prototype.magnitude = function() {
+		return Math.sqrt( this.dot(this) );
+	};
+
 	return Point;
 })();

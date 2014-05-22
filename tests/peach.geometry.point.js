@@ -22,5 +22,19 @@ describe('Peach.Geometry.Point', function() {
 		// Use fuzzy comparison for values, due to roundoff
 		expectToBeRouglyEqual(p.x, 0);
 		expectToBeRouglyEqual(p.y, 2);
-	})
+	});
+
+	it('Should provide a method for the dot product', function() {
+		var p1 = Peach.Geometry.Point.fromCartesian(1, 2);
+		var p2 = Peach.Geometry.Point.fromCartesian(3, 4);
+
+		expectToBeRouglyEqual(p1.dot(p2), 11);
+		expectToBeRouglyEqual(p2.dot(p1), 11);
+	});
+
+	it('Should provide a magnitude method', function() {
+		var p = Peach.Geometry.Point.fromCartesian(3, 4);
+
+		expectToBeRouglyEqual(p.magnitude(), 5);
+	});
 });
