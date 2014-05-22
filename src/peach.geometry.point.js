@@ -38,5 +38,19 @@ Peach.Geometry.Point = (function() {
 		return Math.sqrt( this.dot(this) );
 	};
 
+	/**
+	 * Negates a vector
+	 */
+	Point.prototype.negate = function() {
+		return Point.fromCartesian(-this.x, -this.y);
+	};
+
+	/**
+	 * Adds two vectors
+	 */
+	Point.prototype.add = function(other) {
+		return Point.fromCartesian(this.x + other.x, this.y + other.y);
+	};
+
 	return Point;
 })();

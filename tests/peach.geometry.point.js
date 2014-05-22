@@ -37,4 +37,23 @@ describe('Peach.Geometry.Point', function() {
 
 		expectToBeRouglyEqual(p.magnitude(), 5);
 	});
+
+	it('Should provide a method to negate a vector', function() {
+		var p = Peach.Geometry.Point.fromCartesian(3, 4);
+
+		var negative_p = p.negate();
+	});
+
+	it('Should provide a method to add vectors', function() {
+		var p1 = Peach.Geometry.Point.fromCartesian(1, 2);
+		var p2 = Peach.Geometry.Point.fromCartesian(3, 4);
+
+		var p3 = p1.add(p2);
+		var p4 = p2.add(p1);
+
+		expect(p3.x).to.equal(4);
+		expect(p3.y).to.equal(6);
+		expect(p4.x).to.equal(4);
+		expect(p4.y).to.equal(6);
+	});
 });
