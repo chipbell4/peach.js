@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tests</title>
+		<link rel="stylesheet" href="../node_modules/mocha/mocha.css"/>
+	</head>
+	<body>
+		<div id="mocha"></div>
+
+		<!-- Testing libraries -->
+		<script src="../node_modules/mocha/mocha.js"></script>
+		<script src="../node_modules/chai/chai.js"></script>
+		<script src="../node_modules/sinon/pkg/sinon.js"></script>
+		<script src="../node_modules/sinon-chai/lib/sinon-chai.js"></script>
+
+		<script>
+		mocha.ui('bdd');
+		mocha.reporter('html');
+		var expect = chai.expect;
+		</script>
+
+		<!-- Load in Peach code -->
+		<script src="../src/peach.js"></script>
+		<script src="../src/peach.drawable.js"></script>
+		<script src="../src/peach.geometry.js"></script>
+		<script src="../src/peach.geometry.point.js"></script>
+		<script src="../src/peach.input.js"></script>
+		<script src="../src/peach.primitive.js"></script>
+
+		<!-- Load in tests -->
+		<script src="dummy.js"></script>
+		<script src="peach.geometry.point.js"></script>
+		
+		<!-- Run the tests -->
+		<script>
+		if(window.mochaPhantomJS) {
+			mochaPhantomJS.run();
+		}
+		else {
+			mocha.run();
+		}
+		</script>
+	</body>
+</html>
+

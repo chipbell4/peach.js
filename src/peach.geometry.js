@@ -1,0 +1,3 @@
+Peach.Geometry = (function() {
+	return { };
+})();
