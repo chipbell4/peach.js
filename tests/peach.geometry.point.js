@@ -56,4 +56,21 @@ describe('Peach.Geometry.Point', function() {
 		expect(p4.x).to.equal(4);
 		expect(p4.y).to.equal(6);
 	});
+
+	it('Should provide a method for scaling vectors', function() {
+		var p = Peach.Geometry.Point.fromCartesian(3, 4);
+		expectToBeRouglyEqual(p.magnitude(), 5);
+
+		var p2 = p.scale(2);
+		expectToBeRouglyEqual(p2.magnitude(), 10);
+	});
+
+	it('Should provide a method for rotating vectors', function() {
+		var p = Peach.Geometry.Point.fromCartesian(1, 0);
+
+		var p2 = p.rotate(Math.PI / 2);
+		expectToBeRouglyEqual(p2.magnitude(), 1);
+		expectToBeRouglyEqual(p2.x, 0);
+		expectToBeRouglyEqual(p2.y, 1);
+	});
 });

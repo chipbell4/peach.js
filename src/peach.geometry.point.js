@@ -52,5 +52,22 @@ Peach.Geometry.Point = (function() {
 		return Point.fromCartesian(this.x + other.x, this.y + other.y);
 	};
 
+	/**
+	 * Scales a vector
+	 */
+	Point.prototype.scale = function(scale_factor) {
+		return Point.fromCartesian(this.x * scale_factor, this.y * scale_factor);
+	};
+
+	/**
+	 * Rotates a vector
+	 */
+	Point.prototype.rotate = function(angle) {
+		var new_x = Math.cos(angle) * this.x - Math.sin(angle) * this.y;
+		var new_y = Math.sin(angle) * this.x + Math.sin(angle) * this.y;
+
+		return Point.fromCartesian(new_x, new_y);
+	};
+
 	return Point;
 })();
