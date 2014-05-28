@@ -8,20 +8,10 @@ function Ball(initial_position, initial_velocity)
 
 	this.alive = true;
 
-	this.draw = function()
-	{
-		Peach.Primitive.circle(this.position, this.r, this.color);
-	}
+	var that = this;
 
-	this.update = function()
-	{
-		var dt = Peach.gameState.frameTime / 1000.0;
-
-		/*
-		 * Change the position based on the velocity
-		 */
-		this.position = this.position.add(this.velocity.scale(dt));
-
+	// Function to allow color changes
+	var changeColor = function() {
 		/*
 		 * Allow Keyboard input to change the colors
 		 */
@@ -31,10 +21,10 @@ function Ball(initial_position, initial_velocity)
 			this.color = 'blue';
 		if(Peach.Input.state.keys.g)
 			this.color = 'green';
+	};
 
-		/*
-		 * Bounce off of walls
-		 */
+	// Function to handle bouncing
+	var bounceOffWalls = function() {
 		if(this.position.x < this.r) {
 			this.velocity.x = Math.abs(this.velocity.x);
 		}
@@ -52,17 +42,37 @@ function Ball(initial_position, initial_velocity)
 				this.velocity.y = this.velocity.add(this.acceleration);
 			}
 		}
+	};
 
-		/*
-		 * Accelerate towards the bottom
-		 */
-		this.velocity = this.velocity.add(this.acceleration);
-		
-		/*
-		 * Listen for mouse events to increase the upward velocity
-		 */
+	// Handles mouse clicks to provide acceleration
+	var handleMouseClicks = function() {
 		if(Peach.Input.state.mouseIsDown) {
 			this.velocity = this.velocity.add(this.acceleration.scale(1.2).negate());
 		}
-	}
+	};
+
+	this.draw = function()
+	{
+		Peach.Primitive.circle(this.position, this.r, this.color);
+	};
+
+	this.update = function()
+	{
+		var dt = Peach.gameState.frameTime / 1000.0;
+
+		// Inertia
+		this.position = this.position.add(this.velocity.scale(dt));
+
+		// Gravity
+		this.velocity = this.velocity.add(this.acceleration);
+
+		// change the color based on keyboard presses
+		changeColor.call(this);
+
+		// Collision detection
+		bounceOffWalls.call(this);
+
+		// Allow mouse clicks to add upward velocity
+		handleMouseClicks.call(this);
+	};
 }
