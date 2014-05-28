@@ -26,6 +26,22 @@ Peach.Primitive = (function(){
 		},
 
 		/**
+		 * Draws a path sequentially from each of the points passed
+		 */
+		path: function(points, color) {
+			var N = points.length;
+
+			if(N === 0) {
+				return;
+			}
+
+			for(var i = 0; i < N - 1; i++) {
+				Peach.Primitive.line(points[i], points[i+1], color);
+			}
+
+		},
+
+		/**
 		 * Draws the provided rectangle with the specified color
 		 */
 		rect: function(rectangle, color){
