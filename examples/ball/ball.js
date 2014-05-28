@@ -25,22 +25,34 @@ function Ball(initial_position, initial_velocity)
 
 	// Function to handle bouncing
 	var bounceOffWalls = function() {
+
+		var did_bounce = false;
+
 		if(this.position.x < this.r) {
 			this.velocity.x = Math.abs(this.velocity.x);
+			did_bounce = true;
 		}
 		if(this.position.y < this.r) {
 			this.velocity.y = Math.abs(this.velocity.y);
+			did_bounce = true;
 		}
 		if(this.position.x > Peach.gameState.width - this.r) {
 			this.velocity.x = -Math.abs(this.velocity.x);
+			did_bounce = true;
 		}
 		if(this.position.y > Peach.gameState.height - this.r) {
 			this.velocity.y = -Math.abs(this.velocity.y);
+			did_bounce = true;
 
 			// clamp the velocity to prevent falling through the floor
 			if(Math.abs(this.velocity.y) < this.acceleration.y) {
 				this.velocity.y = this.velocity.add(this.acceleration);
 			}
+		}
+
+		// reduce velocity if we bounced off the wall
+		if(did_bounce) {
+			this.velocity = this.velocity.scale(0.9);
 		}
 	};
 
