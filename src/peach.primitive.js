@@ -1,6 +1,5 @@
 /**
  * A set of handy primitive drawing methods
- * TODO: Expand these a little
  */
 Peach.Primitive = (function(){
 	return {
@@ -28,7 +27,7 @@ Peach.Primitive = (function(){
 		/**
 		 * Draws a path sequentially from each of the points passed
 		 */
-		path: function(points, color) {
+		polygon: function(points, color) {
 			var N = points.length;
 
 			if(N === 0) {
@@ -58,6 +57,36 @@ Peach.Primitive = (function(){
 			Peach.context.arc(center.x - radius, center.y - radius, radius, 0, Math.PI*2, true);
 			Peach.context.closePath();
 			Peach.context.fill();
+		},
+
+		/**
+		 * Draws an image given by the provided url and point/rectangle. If the
+		 * provided value is a point, no scaling occurs. If it is a rectangle, the
+		 * image is scaled to fit that rectangle
+		 */
+		image: function(url, value) {
+			var image = new Image();
+			// defer drawing, until the image is loaded
+			image.onload = function() {
+
+				if(value instanceof Peach.Geometry.Point) {
+					Peach.context.drawImage(
+						image, 
+						value.x,
+						value.y
+					);
+				}
+				else {
+					Peach.context.drawImage(
+						image, 
+						value.top_left.x,
+						value.top_left.y,
+						value.bottom_right.x,
+						value.bottom_right.y
+					);
+				}
+			};
+			image.src = url;
 		},
 	};
 })();
