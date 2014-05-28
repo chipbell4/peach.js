@@ -64,4 +64,60 @@ describe('Peach.Geometry.Rectangle', function() {
 			expect(rectangle.contains(point)).to.not.be.ok;
 		});
 	});
+
+	describe('positioning helpers', function() {
+		var corner1 = Peach.Geometry.Point.fromCartesian(1, 2);
+		var corner2 = Peach.Geometry.Point.fromCartesian(3, 5);
+
+		var rectangle = new Peach.Geometry.Rectangle(corner2, corner1);
+
+		describe('toRightOf', function() {
+			it('Should return true if the point is to the right of the rectangle', function() {
+				var point = Peach.Geometry.Point.fromCartesian(0, 3);
+				expect(rectangle.toRightOf(point)).to.be.ok;
+			});
+			
+			it('Should return false if the point is not to the right of the rectangle', function() {
+				var point = Peach.Geometry.Point.fromCartesian(2, 3);
+				expect(rectangle.toRightOf(point)).to.not.be.ok;
+			});
+		});
+
+		describe('toLeftOf', function() {
+			it('Should return true if the point is to the right of the rectangle', function() {
+				var point = Peach.Geometry.Point.fromCartesian(5, 3);
+				expect(rectangle.toLeftOf(point)).to.be.ok;
+			});
+			
+			it('Should return false if the rectangle is not to the left of the point', function() {
+				var point = Peach.Geometry.Point.fromCartesian(2, 3);
+				expect(rectangle.toLeftOf(point)).to.not.be.ok;
+			});
+		});
+
+		describe('above', function() {
+			it('Should return true for points below the rectangle', function() {
+				var point = Peach.Geometry.Point.fromCartesian(2, 6);
+				expect(rectangle.above(point)).to.be.ok;
+			});
+			
+			it('Should return false for points not below the rectangle', function() {
+				var point = Peach.Geometry.Point.fromCartesian(2, 3);
+				expect(rectangle.above(point)).to.not.be.ok;
+			});
+		});
+
+		describe('below', function() {
+			it('Should return true for points above the rectangle', function() {
+				var point = Peach.Geometry.Point.fromCartesian(2, 0);
+				expect(rectangle.below(point)).to.be.ok;
+			});
+			
+			it('Should return false for points not above the rectangle', function() {
+				var point = Peach.Geometry.Point.fromCartesian(2, 3);
+				expect(rectangle.below(point)).to.not.be.ok;
+			});
+		});
+	});
+
 });

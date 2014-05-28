@@ -24,7 +24,35 @@ Peach.Geometry.Rectangle = (function() {
 	 * Simple clipping for the rectangle (scissoring)
 	 */
 	Rectangle.prototype.contains = function(point) {
-		return this.top_left.x <= point.x && point.x <= this.top_right.x && this.top_left.y <= point.y && point.y <= this.bottom_left.y;
+		return ! (this.toRightOf(point) || this.toLeftOf(point) || this.above(point) || this.below(point));
+	};
+	
+	/**
+	 * Returns true if rectangle is to the right of a point
+	 */
+	Rectangle.prototype.toRightOf = function(point) {
+		return this.top_left.x > point.x;
+	};
+
+	/**
+	 * Returns true if the rectangle is to the left of the provided point
+	 */
+	Rectangle.prototype.toLeftOf = function(point) {
+		return this.top_right.x < point.x;
+	};
+
+	/**
+	 * Returns true if the rectangle is above the point
+	 */
+	Rectangle.prototype.above = function(point) {
+		return this.bottom_right.y < point.y;
+	};
+
+	/**
+	 * Returns true if the rectangle is below the point
+	 */
+	Rectangle.prototype.below = function(point) {
+		return this.top_right.y > point.y;
 	};
 
 	return Rectangle;
