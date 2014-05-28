@@ -10,10 +10,12 @@ var Boid = function() {
 	this.id = _current_boid_id++;
 
 	// How much does this boid cling to the flock?
-	this.flock_clinginess = Math.random();
+	this.flock_clinginess = 0.75;
+	// How far can the boid see?
+	this.vision = 200;
 
 	// get a random location
-	this.velocity = Peach.Geometry.Point.fromPolar(900, Math.random() * 2 * Math.PI);
+	this.velocity = Peach.Geometry.Point.fromPolar(90, Math.random() * 2 * Math.PI);
 
 	// mark it as alive
 	this.alive = true;
@@ -25,13 +27,18 @@ Boid.prototype.draw = function() {
 };
 
 Boid.prototype.flockVector = function() {
-	// Calculate the center point
+	// Calculate the center point of NEIGHBORING flock members
 	var flock_center = Peach.Geometry.Point.fromCartesian(0,0);
 	var flock_size = Peach.entities.length;
+	var neighbor_count = 0;
 	for(var i = 0; i < flock_size; i++) {
-		flock_center = flock_center.add(Peach.entities[i].position);
+		// If the neighbor is close by, let me adjust to his position
+		if(Peach.entities[i].position.add(this.position.negate()).magnitude() < this.vision) {
+			flock_center = flock_center.add(Peach.entities[i].position);
+			neighbor_count++;
+		}
 	}
-	flock_center = flock_center.scale(1.0 / flock_size);
+	flock_center = flock_center.scale(1.0 / neighbor_count);
 	
 	// calculate a vector to the center
 	var flock_center_direction = flock_center.add(this.position.negate());
@@ -66,7 +73,7 @@ Boid.prototype.update = function() {
 	);
 
 	// normalize
-	this.velocity = this.velocity.scale(50.0 / this.velocity.magnitude());
+	this.velocity = this.velocity.scale(90.0 / this.velocity.magnitude());
 
 	// update the position
 	var dt = Peach.gameState.frameTime / 1000.0;
