@@ -357,6 +357,18 @@ Peach.Primitive = (function(){
 		},
 
 		/**
+		 * Draws a line from a point to another point
+		 */
+		line: function(point1, point2, color) {
+			Peach.context.strokeStyle = color;
+			Peach.context.beginPath();
+			Peach.context.moveTo(point1.x, point1.y);
+			Peach.context.lineTo(point2.x, point2.y);
+			Peach.context.closePath();
+			Peach.context.stroke();
+		},
+
+		/**
 		 * Draws the provided rectangle with the specified color
 		 */
 		rect: function(rectangle, color){
@@ -365,13 +377,12 @@ Peach.Primitive = (function(){
 		},
 
 		/**
-		 * Draws a circle with corner (x,y) and radius r with color.
-		 * TODO: Make this CENTERED at (x,y)
+		 * Draws a circle with center (x,y) and radius r with color.
 		 */
-		circle: function(point, r, color){
+		circle: function(center, radius, color){
 			Peach.context.fillStyle = color;
 			Peach.context.beginPath();
-			Peach.context.arc(point.x, point.y, r, 0, Math.PI*2, true);
+			Peach.context.arc(center.x - radius, center.y - radius, radius, 0, Math.PI*2, true);
 			Peach.context.closePath();
 			Peach.context.fill();
 		},
