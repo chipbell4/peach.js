@@ -86,8 +86,15 @@ Peach = (function(){
 		 */
 		init: function(canvasID){
 			var canvas = document.getElementById(canvasID);
+			
 			Peach.gameState.width = canvas.width;
 			Peach.gameState.height = canvas.height;
+
+			// initialize the bounding rectangle for the game
+			var origin = Peach.Geometry.Point.fromCartesian(0,0);
+			var bottom_corner = Peach.Geometry.Point.fromCartesian(canvas.width, canvas.height);
+			Peach.gameState.rectangle = new Peach.Geometry.Rectangle(origin, bottom_corner);
+
 			Peach.context = canvas.getContext('2d');
 			Peach.Input.init();
 		},
@@ -309,6 +316,66 @@ Peach.Geometry.Point = (function() {
 	return Point;
 })();
 
+Peach.Geometry.Rectangle = (function() {
+	/**
+	 * Creates a new Rectangle, with the specified corners
+	 */
+	var Rectangle = function(corner1, corner2) { 
+
+		var min_x = Math.min(corner1.x, corner2.x);
+		var min_y = Math.min(corner1.y, corner2.y);
+		var max_x = Math.max(corner1.x, corner2.x);
+		var max_y = Math.max(corner1.y, corner2.y);
+
+		// set the corner fields
+		this.top_left = Peach.Geometry.Point.fromCartesian(min_x, min_y);
+		this.top_right = Peach.Geometry.Point.fromCartesian(max_x, min_y);
+		this.bottom_left = Peach.Geometry.Point.fromCartesian(min_x, max_y);
+		this.bottom_right = Peach.Geometry.Point.fromCartesian(max_x, max_y);
+
+		// set the width and height fields
+		this.width = max_x - min_x;
+		this.height = max_y - min_y;
+	};
+
+	/**
+	 * Simple clipping for the rectangle (scissoring)
+	 */
+	Rectangle.prototype.contains = function(point) {
+		return ! (this.toRightOf(point) || this.toLeftOf(point) || this.above(point) || this.below(point));
+	};
+	
+	/**
+	 * Returns true if rectangle is to the right of a point
+	 */
+	Rectangle.prototype.toRightOf = function(point) {
+		return this.top_left.x > point.x;
+	};
+
+	/**
+	 * Returns true if the rectangle is to the left of the provided point
+	 */
+	Rectangle.prototype.toLeftOf = function(point) {
+		return this.top_right.x < point.x;
+	};
+
+	/**
+	 * Returns true if the rectangle is above the point
+	 */
+	Rectangle.prototype.above = function(point) {
+		return this.bottom_right.y < point.y;
+	};
+
+	/**
+	 * Returns true if the rectangle is below the point
+	 */
+	Rectangle.prototype.below = function(point) {
+		return this.top_right.y > point.y;
+	};
+
+	return Rectangle;
+})();
+
 /**
  * A set of handy primitive drawing methods
  * TODO: Expand these a little
@@ -325,22 +392,48 @@ Peach.Primitive = (function(){
 		},
 
 		/**
-		 * Draws a rectangle with the provided (x,y) position, width w, height h, and
-		 * color string
+		 * Draws a line from a point to another point
 		 */
-		rect: function(x, y, w, h, color){
-			Peach.context.fillStyle = color;
-			Peach.context.fillRect(x, y, w, h);
+		line: function(point1, point2, color) {
+			Peach.context.strokeStyle = color;
+			Peach.context.beginPath();
+			Peach.context.moveTo(point1.x, point1.y);
+			Peach.context.lineTo(point2.x, point2.y);
+			Peach.context.closePath();
+			Peach.context.stroke();
 		},
 
 		/**
-		 * Draws a circle with corner (x,y) and radius r with color.
-		 * TODO: Make this CENTERED at (x,y)
+		 * Draws a path sequentially from each of the points passed
 		 */
-		circle: function(x,y,r,color){
+		path: function(points, color) {
+			var N = points.length;
+
+			if(N === 0) {
+				return;
+			}
+
+			for(var i = 0; i < N - 1; i++) {
+				Peach.Primitive.line(points[i], points[i+1], color);
+			}
+
+		},
+
+		/**
+		 * Draws the provided rectangle with the specified color
+		 */
+		rect: function(rectangle, color){
+			Peach.context.fillStyle = color;
+			Peach.context.fillRect(rectangle.top_left.x, rectangle.top_left.y, rectangle.width, rectangle.height);
+		},
+
+		/**
+		 * Draws a circle with center (x,y) and radius r with color.
+		 */
+		circle: function(center, radius, color){
 			Peach.context.fillStyle = color;
 			Peach.context.beginPath();
-			Peach.context.arc(x, y, r, 0, Math.PI*2, true);
+			Peach.context.arc(center.x - radius, center.y - radius, radius, 0, Math.PI*2, true);
 			Peach.context.closePath();
 			Peach.context.fill();
 		},
