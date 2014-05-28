@@ -1,21 +1,16 @@
-function Ball(minR, maxR, x, y, vx, vy)
+function Ball(initial_position, initial_velocity)
 {
-	this.r = minR;
-	this.dR = 20;
-	this.minR = minR;
-	this.maxR = maxR;
-	this.x = x;
-	this.y = y;
-	this.vx = vx;
-	this.vy = vy;
+	this.r = 20;
+	this.position = initial_position;
+	this.velocity = initial_velocity;
 	this.color = 'red';
-	this.acceleration = 200;
+	this.acceleration = Peach.Geometry.Point.fromCartesian(0, 200);
 
 	this.alive = true;
 
 	this.draw = function()
 	{
-		Peach.Primitive.circle(this.x, this.y, this.r, this.color);
+		Peach.Primitive.circle(this.position, this.r, this.color);
 	}
 
 	this.update = function()
@@ -25,8 +20,7 @@ function Ball(minR, maxR, x, y, vx, vy)
 		/*
 		 * Change the position based on the velocity
 		 */
-		this.x += dt * this.vx;
-		this.y += dt * this.vy;
+		this.position = this.position.add(this.velocity.scale(dt));
 
 		/*
 		 * Allow Keyboard input to change the colors
@@ -41,34 +35,34 @@ function Ball(minR, maxR, x, y, vx, vy)
 		/*
 		 * Bounce off of walls
 		 */
-		if(this.x < this.r) {
-			this.vx = Math.abs(this.vx);
+		if(this.position.x < this.r) {
+			this.velocity.x = Math.abs(this.velocity.x);
 		}
-		if(this.y < this.r) {
-			this.vy = Math.abs(this.vy);
+		if(this.position.y < this.r) {
+			this.velocity.y = Math.abs(this.velocity.y);
 		}
-		if(this.x > Peach.gameState.width - this.r) {
-			this.vx = -Math.abs(this.vx);
+		if(this.position.x > Peach.gameState.width - this.r) {
+			this.velocity.x = -Math.abs(this.velocity.x);
 		}
-		if(this.y > Peach.gameState.height - this.r) {
-			this.vy = -Math.abs(this.vy);
+		if(this.position.y > Peach.gameState.height - this.r) {
+			this.velocity.y = -Math.abs(this.velocity.y);
 
 			// clamp the velocity to prevent falling through the floor
-			if(Math.abs(this.vy) < this.acceleration) {
-				this.vy = -this.acceleration;
+			if(Math.abs(this.velocity.y) < this.acceleration.y) {
+				this.velocity.y = this.velocity.add(this.acceleration);
 			}
 		}
 
 		/*
 		 * Accelerate towards the bottom
 		 */
-		this.vy += this.acceleration;
+		this.velocity = this.velocity.add(this.acceleration);
 		
 		/*
 		 * Listen for mouse events to increase the upward velocity
 		 */
 		if(Peach.Input.state.mouseIsDown) {
-			this.vy -= this.acceleration * 1.2;
+			this.velocity = this.velocity.add(this.acceleration.scale(1.2).negate());
 		}
 	}
 }

@@ -357,22 +357,21 @@ Peach.Primitive = (function(){
 		},
 
 		/**
-		 * Draws a rectangle with the provided (x,y) position, width w, height h, and
-		 * color string
+		 * Draws the provided rectangle with the specified color
 		 */
-		rect: function(x, y, w, h, color){
+		rect: function(rectangle, color){
 			Peach.context.fillStyle = color;
-			Peach.context.fillRect(x, y, w, h);
+			Peach.context.fillRect(rectangle.top_left.x, rectangle.top_left.y, rectangle.width, rectangle.height);
 		},
 
 		/**
 		 * Draws a circle with corner (x,y) and radius r with color.
 		 * TODO: Make this CENTERED at (x,y)
 		 */
-		circle: function(x,y,r,color){
+		circle: function(point, r, color){
 			Peach.context.fillStyle = color;
 			Peach.context.beginPath();
-			Peach.context.arc(x, y, r, 0, Math.PI*2, true);
+			Peach.context.arc(point.x, point.y, r, 0, Math.PI*2, true);
 			Peach.context.closePath();
 			Peach.context.fill();
 		},

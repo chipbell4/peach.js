@@ -10,7 +10,14 @@
 	</canvas>
 	<script>
 		Peach.init('canvas');
-		Peach.entities.push(new Ball(20, 20, 0, 0, Math.random() * 500, Math.random() * 500));
+
+		var ball = new Ball(
+			Peach.Geometry.Point.fromCartesian(0,0),
+			Peach.Geometry.Point.fromPolar(500, Math.random() * 2 * Math.PI)
+		);
+
+		Peach.entities.push(ball);
+		
 		Peach.start();
 	</script>
 </body>
