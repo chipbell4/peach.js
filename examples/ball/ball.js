@@ -28,19 +28,19 @@ function Ball(initial_position, initial_velocity)
 
 		var did_bounce = false;
 
-		if(this.position.x < this.r) {
+		if(Peach.gameState.rectangle.toRightOf(this.position)) {
 			this.velocity.x = Math.abs(this.velocity.x);
 			did_bounce = true;
 		}
-		if(this.position.y < this.r) {
+		if(Peach.gameState.rectangle.below(this.position)) {
 			this.velocity.y = Math.abs(this.velocity.y);
 			did_bounce = true;
 		}
-		if(this.position.x > Peach.gameState.width - this.r) {
+		if(Peach.gameState.rectangle.toLeftOf(this.position)) {
 			this.velocity.x = -Math.abs(this.velocity.x);
 			did_bounce = true;
 		}
-		if(this.position.y > Peach.gameState.height - this.r) {
+		if(Peach.gameState.rectangle.above(this.position)) {
 			this.velocity.y = -Math.abs(this.velocity.y);
 			did_bounce = true;
 
@@ -52,7 +52,7 @@ function Ball(initial_position, initial_velocity)
 
 		// reduce velocity if we bounced off the wall
 		if(did_bounce) {
-			this.velocity = this.velocity.scale(0.9);
+			this.velocity = this.velocity.scale(0.75);
 		}
 	};
 

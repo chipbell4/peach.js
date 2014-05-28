@@ -86,8 +86,15 @@ Peach = (function(){
 		 */
 		init: function(canvasID){
 			var canvas = document.getElementById(canvasID);
+			
 			Peach.gameState.width = canvas.width;
 			Peach.gameState.height = canvas.height;
+
+			// initialize the bounding rectangle for the game
+			var origin = Peach.Geometry.Point.fromCartesian(0,0);
+			var bottom_corner = Peach.Geometry.Point.fromCartesian(canvas.width, canvas.height);
+			Peach.gameState.rectangle = new Peach.Geometry.Rectangle(origin, bottom_corner);
+
 			Peach.context = canvas.getContext('2d');
 			Peach.Input.init();
 		},
