@@ -28,7 +28,7 @@
     "sinon-chai": "~2.5.0",
     "gulp-mocha-phantomjs": "~0.2.1",
     "mocha-phantomjs": "3.1.5",
-    "mocha" : 1.13.0,
-    "phantomjs" : "1.9.2"
+    "mocha" : "1.13.0",
+    "phantomjs" : "1.9.*"
   }
 }
