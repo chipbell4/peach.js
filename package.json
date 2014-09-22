@@ -1,0 +1,31 @@
+{
+  "name": "peach.js",
+  "version": "0.2.0",
+  "description": "A 2D game library for the canvas",
+  "main": "index.html",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chipbell4/peach.js.git"
+  },
+  "author": "Chip Bell",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/chipbell4/peach.js/issues"
+  },
+  "devDependencies": {
+    "gulp": "~3.6.2",
+    "gulp-concat": "~2.2.0",
+    "gulp-uglify": "~0.3.0",
+    "gulp-jshint": "~1.6.1",
+    "gulp-rename": "~1.2.0",
+    "gulp-mocha": "~0.4.1",
+    "chai": "~1.9.1",
+    "mocha": "~1.19.0",
+    "sinon": "~1.10.0",
+    "sinon-chai": "~2.5.0",
+    "gulp-mocha-phantomjs": "~0.2.1"
+  }
+}
