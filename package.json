@@ -1,10 +1,10 @@
 {
   "name": "peach.js",
-  "version": "0.2.0",
+  "version": "0.1.1",
   "description": "A 2D game library for the canvas",
-  "main": "index.html",
+  "main": "dist/peach.min.js",
   "scripts": {
-    "test": "mocha"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,9 @@
     "mocha": "~1.19.0",
     "sinon": "~1.10.0",
     "sinon-chai": "~2.5.0",
-    "gulp-mocha-phantomjs": "~0.2.1"
+    "gulp-mocha-phantomjs": "~0.2.1",
+    "mocha-phantomjs": "3.1.5",
+    "mocha" : "1.13.0",
+    "phantomjs" : "1.9.*"
   }
 }
