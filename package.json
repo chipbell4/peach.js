@@ -4,7 +4,7 @@
   "description": "A 2D game library for the canvas",
   "main": "index.html",
   "scripts": {
-    "test": "mocha"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
