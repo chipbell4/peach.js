@@ -80,4 +80,44 @@ describe('Peach.Sprites', function() {
 
 	});
 
+	describe('AnimatedSprite', function() {
+
+		it('should exist', function() {
+			expect(Peach.Sprites.AnimatedSprite).to.be.ok;
+		});
+
+		it('should have an update method', function() {
+			expect(Peach.Sprites.AnimatedSprite.prototype.update).to.be.ok;
+		});
+
+		describe('updateTime', function() {
+			var nextFrameCalled = false;
+			var animated_sprite = {
+				frame_duration: 0,
+				current_animation_time: 0,
+				nextFrame: function() {
+					nextFrameCalled = true;
+				},
+			};	
+
+			it('should not call next frame if the new frame time does not push it over', function() {
+				animated_sprite.frame_duration = 100;
+				Peach.Sprites.AnimatedSprite.prototype.updateTime.call(animated_sprite, 99);
+
+				expect(animated_sprite.current_animation_time).to.equal(99);
+				expect(nextFrameCalled).to.not.be.ok;
+			});
+
+			it('should call next frame if the new frame pushes it over', function() {
+				animated_sprite.frame_duration = 100;
+				animated_sprite.current_animation_time = 2;
+				Peach.Sprites.AnimatedSprite.prototype.updateTime.call(animated_sprite, 99);
+
+				expect(animated_sprite.current_animation_time).to.equal(1);
+				expect(nextFrameCalled).to.be.ok;
+			});
+		});
+	});
+
 });
+

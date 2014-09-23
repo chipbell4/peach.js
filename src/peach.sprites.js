@@ -53,7 +53,50 @@ Peach.Sprites = (function() {
 		);
 	};
 
+	var AnimatedSprite = function() {
+		// Call the superclass
+		Sprite.apply(this, arguments);
+
+		// setup the animation
+		this.current_animation_frame = 0;
+		this.current_animation = arguments[3] || [ Peach.Geometry.Point.Origin ];
+		this.frame_duration = arguments[4];
+		this.current_animation_time = 0;
+	};
+
+	AnimatedSprite.prototype.clampFrame = function() {
+		this.current_animation_frame = this.current_animation_frame % this.current_animation.length;
+	};
+
+	AnimatedSprite.prototype.nextFrame = function() {
+		this.current_animation_frame ++;
+		this.clampFrame();
+	};
+
+	AnimatedSprite.prototype.updateTime = function(frame_time) {
+		this.current_animation_time += frame_time;
+
+		// if it was pushed over, rewind and move to next frame
+		if(this.current_animation_time > this.frame_duration) {
+			this.current_animation_time -= this.frame_duration;
+			this.nextFrame();
+		}
+	};
+
+	AnimatedSprite.prototype.update = function() {
+		this.updateTime(Peach.gameState.frameTime);
+
+		// set the current sprite coordinates to point the current animation
+		this.clampFrame();
+		this.current_sprite_coordinates = this.current_animation[this.current_animation_frame];
+	};
+
+	AnimatedSprite.prototype.draw = function() {
+		Sprite.prototype.draw.apply(this, arguments);
+	};
+
 	return {
-		Sprite: Sprite
+		Sprite: Sprite,
+		AnimatedSprite: AnimatedSprite
 	};
 })();
