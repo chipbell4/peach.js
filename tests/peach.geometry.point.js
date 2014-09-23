@@ -83,4 +83,12 @@ describe('Peach.Geometry.Point', function() {
 		expect(rectangle.width).to.equal(10);
 		expect(rectangle.height).to.equal(20);
 	});
+
+	it('Should have the origin defined on it', function() {
+		var origin = Peach.Geometry.Point.Origin;
+
+		expect(origin).to.be.ok;
+		expect(origin.x).to.equal(0);
+		expect(origin.y).to.equal(0);
+	});
 });

@@ -80,5 +80,7 @@ Peach.Geometry.Point = (function() {
 		);
 	};
 
+	Point.Origin = Point.fromCartesian(0, 0);
+
 	return Point;
 })();
