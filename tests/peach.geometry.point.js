@@ -57,12 +57,25 @@ describe('Peach.Geometry.Point', function() {
 		expect(p4.y).to.equal(6);
 	});
 
-	it('Should provide a method for scaling vectors', function() {
-		var p = Peach.Geometry.Point.fromCartesian(3, 4);
-		expectToBeRouglyEqual(p.magnitude(), 5);
+	describe('scale', function() {
+		it('Should provide a method for scaling vectors with a float', function() {
+			var p = Peach.Geometry.Point.fromCartesian(3, 4);
+			expectToBeRouglyEqual(p.magnitude(), 5);
 
-		var p2 = p.scale(2);
-		expectToBeRouglyEqual(p2.magnitude(), 10);
+			var p2 = p.scale(2);
+			expectToBeRouglyEqual(p2.magnitude(), 10);
+		});
+
+		it('Should provide a method for scaling vectors by another vector', function() {
+			var p = Peach.Geometry.Point.fromCartesian(3, 4);
+
+			var scaling_vector = Peach.Geometry.Point.fromCartesian(5, 2);
+
+			var p2 = p.scale(scaling_vector);
+
+			expectToBeRouglyEqual(p2.x, 15);
+			expectToBeRouglyEqual(p2.y, 8);
+		});
 	});
 
 	it('Should provide a method for rotating vectors', function() {
