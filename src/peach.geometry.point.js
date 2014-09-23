@@ -69,5 +69,16 @@ Peach.Geometry.Point = (function() {
 		return Point.fromCartesian(new_x, new_y);
 	};
 
+	/**
+	 * Expands the point to create a rectangle
+	 */
+	Point.prototype.expandToRectangle = function(width, height) {
+		var expansion = Point.fromCartesian(width, height);
+		return new Peach.Geometry.Rectangle(
+			this,
+			this.add(expansion)
+		);
+	};
+
 	return Point;
 })();

@@ -73,4 +73,14 @@ describe('Peach.Geometry.Point', function() {
 		expectToBeRouglyEqual(p2.x, 0);
 		expectToBeRouglyEqual(p2.y, 1);
 	});
+
+	it('Should be able to create a rectangle from a point, width and height', function() {
+		var p = Peach.Geometry.Point.fromCartesian(1, 2);
+
+		var rectangle = p.expandToRectangle(10, 20);
+
+		expect(rectangle).to.be.ok;
+		expect(rectangle.width).to.equal(10);
+		expect(rectangle.height).to.equal(20);
+	});
 });
