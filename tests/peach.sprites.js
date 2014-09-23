@@ -63,6 +63,21 @@ describe('Peach.Sprites', function() {
 			});
 		});
 
+		it('Should have an update method', function() {
+			expect(Peach.Sprites.Sprite.prototype.update).to.be.ok;
+		});
+
+		it('Should have a draw method', function() {
+			Peach.context = document.createElement('canvas').getContext('2d');
+
+			var sprite = new Peach.Sprites.Sprite(
+				'spritesheet',
+				Peach.Geometry.Point.fromCartesian(1, 2),
+				Peach.Geometry.Point.fromCartesian(10, 20)
+			);
+			sprite.draw();
+		});
+
 	});
 
 });
