@@ -1,7 +1,7 @@
 Peach.Sprites = (function() {
 	var Sprite = function(sprite_sheet, sprite_sheet_origin, sprite_size) {
 		// Go ahead and download the sprite sheet
-		this.sprite_image = new Image;
+		this.sprite_image = new Image();
 		this.sprite_image.src = sprite_sheet;
 		
 		// Copy over the other variables
