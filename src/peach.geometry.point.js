@@ -56,7 +56,12 @@ Peach.Geometry.Point = (function() {
 	 * Scales a vector
 	 */
 	Point.prototype.scale = function(scale_factor) {
-		return Point.fromCartesian(this.x * scale_factor, this.y * scale_factor);
+		if(typeof scale_factor == 'number') {
+			return Point.fromCartesian(this.x * scale_factor, this.y * scale_factor);
+		}
+		else {
+			return Point.fromCartesian(this.x * scale_factor.x, this.y * scale_factor.y);
+		}
 	};
 
 	/**
@@ -79,6 +84,8 @@ Peach.Geometry.Point = (function() {
 			this.add(expansion)
 		);
 	};
+
+	Point.Origin = Point.fromCartesian(0, 0);
 
 	return Point;
 })();
