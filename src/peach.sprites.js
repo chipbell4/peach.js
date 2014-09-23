@@ -1,4 +1,8 @@
 Peach.Sprites = (function() {
+	/**
+	 * The sprite class. Represents a sprite-sheeted image, with a moveable "window"
+	 * for only showing a particular slot of the image.
+	 */
 	var Sprite = function(sprite_sheet, sprite_sheet_origin, sprite_size) {
 		// Go ahead and download the sprite sheet
 		this.sprite_image = new Image();
@@ -16,6 +20,9 @@ Peach.Sprites = (function() {
 		this.draw_size = Peach.Geometry.Point.fromCartesian(20, 20);
 	};
 
+	/**
+	 * Returns a rectangle giving the current pixels shown through the sprite sheet
+	 */
 	Sprite.prototype.getCrop = function() {
 		var sprite_offset = this.current_sprite_coordinates.scale(this.sprite_size);
 
@@ -27,6 +34,9 @@ Peach.Sprites = (function() {
 
 	Sprite.prototype.update = function() { };
 
+	/**
+	 * Draws the image onto the canvas 
+	 */
 	Sprite.prototype.draw = function() {
 		var crop = this.getCrop();
 
