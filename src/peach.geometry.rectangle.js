@@ -55,5 +55,14 @@ Peach.Geometry.Rectangle = (function() {
 		return this.top_right.y > point.y;
 	};
 
+	/**
+	 * Returns the rectangle translated to a new location
+	 */
+	Rectangle.prototype.translate = function(direction) {
+		var top_left = this.top_left.add(direction);
+		var bottom_right = this.bottom_right.add(direction);
+		return new Rectangle(top_left, bottom_right);
+	};
+
 	return Rectangle;
 })();

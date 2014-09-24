@@ -57,12 +57,25 @@ describe('Peach.Geometry.Point', function() {
 		expect(p4.y).to.equal(6);
 	});
 
-	it('Should provide a method for scaling vectors', function() {
-		var p = Peach.Geometry.Point.fromCartesian(3, 4);
-		expectToBeRouglyEqual(p.magnitude(), 5);
+	describe('scale', function() {
+		it('Should provide a method for scaling vectors with a float', function() {
+			var p = Peach.Geometry.Point.fromCartesian(3, 4);
+			expectToBeRouglyEqual(p.magnitude(), 5);
 
-		var p2 = p.scale(2);
-		expectToBeRouglyEqual(p2.magnitude(), 10);
+			var p2 = p.scale(2);
+			expectToBeRouglyEqual(p2.magnitude(), 10);
+		});
+
+		it('Should provide a method for scaling vectors by another vector', function() {
+			var p = Peach.Geometry.Point.fromCartesian(3, 4);
+
+			var scaling_vector = Peach.Geometry.Point.fromCartesian(5, 2);
+
+			var p2 = p.scale(scaling_vector);
+
+			expectToBeRouglyEqual(p2.x, 15);
+			expectToBeRouglyEqual(p2.y, 8);
+		});
 	});
 
 	it('Should provide a method for rotating vectors', function() {
@@ -72,5 +85,23 @@ describe('Peach.Geometry.Point', function() {
 		expectToBeRouglyEqual(p2.magnitude(), 1);
 		expectToBeRouglyEqual(p2.x, 0);
 		expectToBeRouglyEqual(p2.y, 1);
+	});
+
+	it('Should be able to create a rectangle from a point, width and height', function() {
+		var p = Peach.Geometry.Point.fromCartesian(1, 2);
+
+		var rectangle = p.expandToRectangle(10, 20);
+
+		expect(rectangle).to.be.ok;
+		expect(rectangle.width).to.equal(10);
+		expect(rectangle.height).to.equal(20);
+	});
+
+	it('Should have the origin defined on it', function() {
+		var origin = Peach.Geometry.Point.Origin;
+
+		expect(origin).to.be.ok;
+		expect(origin.x).to.equal(0);
+		expect(origin.y).to.equal(0);
 	});
 });

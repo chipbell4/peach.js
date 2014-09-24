@@ -1,8 +1,12 @@
 describe('Peach.Geometry.Rectangle', function() {
 
+	var expectFloatEquals = function(f1, f2) {
+		return expect(Math.abs(f1 - f2) < 0.01).to.be.ok;
+	}
+
 	var expectPointEquals = function(p1, p2) {
-		expect(Math.abs(p1.x - p2.x) < 0.01).to.be.ok;
-		expect(Math.abs(p1.y - p2.y) < 0.01).to.be.ok;
+		expectFloatEquals(p1.x, p2.x);
+		expectFloatEquals(p1.y, p2.y);
 	};
 
 	it('Should exist on the geometry object', function() {
@@ -117,6 +121,24 @@ describe('Peach.Geometry.Rectangle', function() {
 				var point = Peach.Geometry.Point.fromCartesian(2, 3);
 				expect(rectangle.below(point)).to.not.be.ok;
 			});
+		});
+
+	});
+	
+	describe('translate', function() {
+		it('Should shift the point correctly', function() {
+			var rectangle = new Peach.Geometry.Rectangle(
+				Peach.Geometry.Point.fromCartesian(0, 0),
+				Peach.Geometry.Point.fromCartesian(1, 2)
+			);
+
+			var updated_rectangle = rectangle.translate(
+				Peach.Geometry.Point.fromCartesian(2, 3)
+			);
+
+			expect(updated_rectangle).to.be.ok;
+			expectPointEquals(updated_rectangle.top_left, Peach.Geometry.Point.fromCartesian(2, 3));
+			expectPointEquals(updated_rectangle.bottom_right, Peach.Geometry.Point.fromCartesian(3, 5));
 		});
 	});
 
