@@ -1,5 +1,6 @@
 peach.js
 ========
+![Build Status](https://travis-ci.org/chipbell4/peach.js.svg?branch=develop)
 
 A small 2D game framework for JavaScript. Adds key listeners, a place for game
 state, and an object model for game elements. However, its very lightweight
