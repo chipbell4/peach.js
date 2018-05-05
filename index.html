@@ -12,19 +12,28 @@ canvas {
 var renderer = new ArcadeRenderer(320, 240, [0xff0000, 0x00ff00, 0x0000ff]);
 document.body.appendChild(renderer.canvas);
 
-var sprite = new ArcadeRenderer.Sprite([
-        [1, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 0, 0],
-        [1, 1, 1, 1, 1, 1, 1, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-]);
+var bitmap1 = [
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+];
+
+var bitmap2 = bitmap1.map(row => row.map(() => 1));
+
+var sprite = new ArcadeRenderer.Sprite(bitmap1);
+var sprite2 = new ArcadeRenderer.Sprite(bitmap1);
 
 renderer.sprites.push(sprite);
+renderer.sprites.push(sprite2);
+
+sprite2.x = 150;
+sprite2.y = 100;
 
 var k = 0;
 function render() {
@@ -32,6 +41,14 @@ function render() {
     sprite.x = Math.floor(100 + 50 * Math.cos(k));
     sprite.y = Math.floor(100 + 50 * Math.sin(k));
     k += 0.01;
+
+    if(sprite.collides(sprite2)) {
+        sprite.bitmap = bitmap2;
+        sprite2.bitmap = bitmap2;
+    } else {
+        sprite.bitmap = bitmap1;
+        sprite2.bitmap = bitmap1;
+    }
 
     requestAnimationFrame(render);
     renderer.render();
