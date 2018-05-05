@@ -1,5 +1,5 @@
 (function() {
-  window.ArcadeRenderer = function(width, height, palette) {
+  var ArcadeRenderer = function(width, height, palette) {
     this.palette = palette.map(rawColor => {
       var r = (rawColor & 0xff0000) >> 16;
       var g = (rawColor & 0xff00) >> 8;
@@ -16,7 +16,7 @@
     this.imageData = this.context.getImageData(0, 0, width, height);
   };
 
-  window.ArcadeRenderer.prototype.setPixel = function(i, j, paletteIndex) {
+  ArcadeRenderer.prototype.setPixel = function(i, j, paletteIndex) {
     var color = this.palette[paletteIndex];
     var index = (j * this.width + i) * 4;
     this.imageData.data[index] = color[0];
@@ -25,7 +25,9 @@
     this.imageData.data[index + 3] = 255;
   };
 
-  window.ArcadeRenderer.prototype.render = function() {
+  ArcadeRenderer.prototype.render = function() {
     this.context.putImageData(this.imageData, 0, 0);
   };
+
+  window.ArcadeRenderer = ArcadeRenderer;
 })();
