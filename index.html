@@ -12,11 +12,32 @@ canvas {
 var renderer = new ArcadeRenderer(320, 240, [0xff0000, 0x00ff00, 0x0000ff]);
 document.body.appendChild(renderer.canvas);
 
-for(var i = 100; i < 200; i++) {
-    renderer.setPixel(i, i, i % 3);
-}
+var sprite = new ArcadeRenderer.Sprite([
+        [1, 0, 0, 0, 0, 0, 0, 0],
+        [1, 1, 0, 0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 0],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+]);
 
-renderer.render();
+renderer.sprites.push(sprite);
+
+var k = 0;
+function render() {
+
+    sprite.x = Math.floor(100 + 50 * Math.cos(k));
+    sprite.y = Math.floor(100 + 50 * Math.sin(k));
+    k += 0.01;
+
+    requestAnimationFrame(render);
+    renderer.render();
+};
+
+render();
     </script>
     </body>
 </html>

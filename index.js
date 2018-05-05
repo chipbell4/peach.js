@@ -14,6 +14,7 @@
 
     this.context = this.canvas.getContext('2d');
     this.imageData = this.context.getImageData(0, 0, width, height);
+    this.sprites = [];
   };
 
   ArcadeRenderer.prototype.setPixel = function(i, j, paletteIndex) {
@@ -26,7 +27,23 @@
   };
 
   ArcadeRenderer.prototype.render = function() {
+    this.imageData = new ImageData(this.width, this.height);
+
+    this.sprites.forEach(sprite => {
+      for(var i = 0; i < sprite.bitmap.length; i++) {
+        for(var j = 0; j < sprite.bitmap[0].length; j++) {
+          this.setPixel(sprite.x + i, sprite.y + j, sprite.bitmap[i][j]);
+        }
+      }
+    });
+
     this.context.putImageData(this.imageData, 0, 0);
+  };
+
+  ArcadeRenderer.Sprite = function(bitmap) {
+    this.bitmap = bitmap;
+    this.x = 0;
+    this.y = 0;
   };
 
   window.ArcadeRenderer = ArcadeRenderer;
