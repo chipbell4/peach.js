@@ -26,8 +26,8 @@ var bitmap1 = [
 
 var bitmap2 = bitmap1.map(row => row.map(() => 1));
 
-var sprite = new ArcadeRenderer.Sprite(bitmap1);
-var sprite2 = new ArcadeRenderer.Sprite(bitmap1);
+var sprite = new ArcadeRenderer.Sprite(bitmap1, [0, 1, 2]);
+var sprite2 = new ArcadeRenderer.Sprite(bitmap1, [1, 2, 0]);
 
 renderer.sprites.push(sprite);
 renderer.sprites.push(sprite2);

@@ -32,7 +32,8 @@
     this.sprites.forEach(sprite => {
       for(var i = 0; i < sprite.bitmap.length; i++) {
         for(var j = 0; j < sprite.bitmap[0].length; j++) {
-          this.setPixel(sprite.x + i, sprite.y + j, sprite.bitmap[i][j]);
+          var color = sprite.paletteAssignment[sprite.bitmap[i][j]];
+          this.setPixel(sprite.x + i, sprite.y + j, color);
         }
       }
     });
@@ -40,8 +41,9 @@
     this.context.putImageData(this.imageData, 0, 0);
   };
 
-  ArcadeRenderer.Sprite = function(bitmap) {
+  ArcadeRenderer.Sprite = function(bitmap, paletteAssignment) {
     this.bitmap = bitmap;
+    this.paletteAssignment = paletteAssignment;
     this.x = 0;
     this.y = 0;
     this.width = this.bitmap.length;
