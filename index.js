@@ -3,16 +3,16 @@
     this.palette = palette.map(rawColor => {
       var r = (rawColor & 0xff0000) >> 16;
       var g = (rawColor & 0xff00) >> 8;
-      var b = (rawColor & 0xff);
+      var b = rawColor & 0xff;
       return [r, g, b];
     });
 
-    this.canvas = document.createElement('canvas');
+    this.canvas = document.createElement("canvas");
     this.canvas.width = this.width = width;
     this.canvas.height = this.height = height;
-    this.canvas.style.imageRendering = 'pixelated';
+    this.canvas.style.imageRendering = "pixelated";
 
-    this.context = this.canvas.getContext('2d');
+    this.context = this.canvas.getContext("2d");
     this.imageData = this.context.getImageData(0, 0, width, height);
     this.sprites = [];
   };
@@ -30,8 +30,8 @@
     this.imageData = new ImageData(this.width, this.height);
 
     this.sprites.forEach(sprite => {
-      for(var i = 0; i < sprite.bitmap.length; i++) {
-        for(var j = 0; j < sprite.bitmap[0].length; j++) {
+      for (var i = 0; i < sprite.bitmap.length; i++) {
+        for (var j = 0; j < sprite.bitmap[0].length; j++) {
           var color = sprite.paletteAssignment[sprite.bitmap[i][j]];
           this.setPixel(sprite.x + i, sprite.y + j, color);
         }
@@ -51,7 +51,12 @@
   };
 
   ArcadeRenderer.Sprite.prototype.collides = function(s) {
-    return this.x < s.x + s.width && this.x + this.width > s.x && this.y < s.y + s.height && this.y + this.height > s.y;
+    return (
+      this.x < s.x + s.width &&
+      this.x + this.width > s.x &&
+      this.y < s.y + s.height &&
+      this.y + this.height > s.y
+    );
   };
 
   window.ArcadeRenderer = ArcadeRenderer;

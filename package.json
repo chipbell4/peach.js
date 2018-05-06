@@ -1,0 +1,24 @@
+{
+  "name": "arcade-renderer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --write index.js",
+    "test": "eslint index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "browser": true,
+      "es6": true
+    }
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "prettier": "^1.12.1"
+  }
+}
