@@ -4,11 +4,19 @@
   "description": "A 2D game library for the canvas",
   "main": "dist/peach.min.js",
   "scripts": {
-    "test": "gulp test"
+    "prettier": "prettier --write index.js",
+    "test": "eslint index.js"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/chipbell4/peach.js.git"
+  },
+  "eslintConfig" : {
+    "extends": "eslint:recommended",
+    "env": {
+      "browser": true,
+      "es6": true
+    }
   },
   "author": "Chip Bell",
   "license": "BSD-2-Clause",
@@ -16,19 +24,7 @@
     "url": "https://github.com/chipbell4/peach.js/issues"
   },
   "devDependencies": {
-    "gulp": "~3.6.2",
-    "gulp-concat": "~2.2.0",
-    "gulp-uglify": "~0.3.0",
-    "gulp-jshint": "~1.6.1",
-    "gulp-rename": "~1.2.0",
-    "gulp-mocha": "~0.4.1",
-    "chai": "~1.9.1",
-    "mocha": "~1.19.0",
-    "sinon": "~1.10.0",
-    "sinon-chai": "~2.5.0",
-    "gulp-mocha-phantomjs": "~0.2.1",
-    "mocha-phantomjs": "3.1.5",
-    "mocha" : "1.13.0",
-    "phantomjs" : "1.9.*"
+    "eslint": "^4.19.1",
+    "prettier": "^1.12.1"
   }
 }
