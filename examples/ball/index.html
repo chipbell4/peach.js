@@ -1,0 +1,24 @@
+<!DOCTYPE>
+<html>
+<head>
+	<script src='../../dist/peach.js'></script>
+	<script src='ball.js'></script>
+</head>
+<body>
+	<canvas id='canvas' width='640' height='480'>
+		No Canvas support!
+	</canvas>
+	<script>
+		Peach.init('canvas');
+
+		var ball = new Ball(
+			Peach.Geometry.Point.fromCartesian(50, 50),
+			Peach.Geometry.Point.fromPolar(500, Math.random() * 2 * Math.PI)
+		);
+
+		Peach.entities.push(ball);
+		
+		Peach.start();
+	</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE>
+<html>
+<head>
+	<script src='../../dist/peach.js'></script>
+	<script src='boid.js'></script>
+</head>
+<body>
+	<canvas id='canvas' width='640' height='480'>
+		No Canvas support!
+	</canvas>
+	<script>
+		Peach.init('canvas');
+
+		var boid_count = 100;
+
+		for(var i=0; i < boid_count; i++) {
+			Peach.entities.push(new Boid());
+		}
+		
+		Peach.start();
+	</script>
+</body>
+</html>
