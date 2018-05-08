@@ -1,5 +1,5 @@
 (function() {
-  var ArcadeRenderer = function(width, height, palette) {
+  var Peach = function(width, height, palette) {
     this.palette = palette.map(rawColor => {
       var r = (rawColor & 0xff0000) >> 16;
       var g = (rawColor & 0xff00) >> 8;
@@ -17,7 +17,7 @@
     this.sprites = [];
   };
 
-  ArcadeRenderer.prototype.setPixel = function(i, j, paletteIndex) {
+  Peach.prototype.setPixel = function(i, j, paletteIndex) {
     var color = this.palette[paletteIndex];
     var index = (j * this.width + i) * 4;
     this.imageData.data[index] = color[0];
@@ -26,7 +26,7 @@
     this.imageData.data[index + 3] = 255;
   };
 
-  ArcadeRenderer.prototype.render = function() {
+  Peach.prototype.render = function() {
     this.imageData = new ImageData(this.width, this.height);
 
     this.sprites.forEach(sprite => {
@@ -41,7 +41,7 @@
     this.context.putImageData(this.imageData, 0, 0);
   };
 
-  ArcadeRenderer.Sprite = function(bitmap, paletteAssignment) {
+  Peach.Sprite = function(bitmap, paletteAssignment) {
     this.bitmap = bitmap;
     this.paletteAssignment = paletteAssignment;
     this.x = 0;
@@ -50,7 +50,7 @@
     this.height = this.bitmap[0].length;
   };
 
-  ArcadeRenderer.Sprite.prototype.collides = function(s) {
+  Peach.Sprite.prototype.collides = function(s) {
     return (
       this.x < s.x + s.width &&
       this.x + this.width > s.x &&
@@ -59,5 +59,5 @@
     );
   };
 
-  window.ArcadeRenderer = ArcadeRenderer;
+  window.Peach = Peach;
 })();

@@ -7,9 +7,9 @@ canvas {
     transform: scale(3);
 }
 </style>
-        <script src="./index.js"></script>
+        <script src="./peach.js"></script>
     <script>
-var renderer = new ArcadeRenderer(320, 240, [0xff0000, 0x00ff00, 0x0000ff]);
+var renderer = new Peach(320, 240, [0xff0000, 0x00ff00, 0x0000ff]);
 document.body.appendChild(renderer.canvas);
 
 var bitmap1 = [
@@ -26,8 +26,8 @@ var bitmap1 = [
 
 var bitmap2 = bitmap1.map(row => row.map(() => 1));
 
-var sprite = new ArcadeRenderer.Sprite(bitmap1, [0, 1, 2]);
-var sprite2 = new ArcadeRenderer.Sprite(bitmap1, [1, 2, 0]);
+var sprite = new Peach.Sprite(bitmap1, [0, 1, 2]);
+var sprite2 = new Peach.Sprite(bitmap1, [1, 2, 0]);
 
 renderer.sprites.push(sprite);
 renderer.sprites.push(sprite2);
