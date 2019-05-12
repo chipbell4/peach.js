@@ -33,14 +33,15 @@
   Peach.prototype.render = function() {
     this.imageData = new ImageData(this.width, this.height);
 
-    this.sprites.forEach(sprite => {
+    for (var i = 0; i < this.sprites.length; i++) {
+      var sprite = this.sprites[i];
       for (var i = 0; i < sprite.bitmap.length; i++) {
         for (var j = 0; j < sprite.bitmap[0].length; j++) {
           var color = sprite.paletteAssignment[sprite.bitmap[i][j]];
           this.setPixel(sprite.x + j, sprite.y + i, color);
         }
       }
-    });
+    }
 
     this.context.putImageData(this.imageData, 0, 0);
   };
