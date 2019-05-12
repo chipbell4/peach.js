@@ -37,7 +37,7 @@
       for (var i = 0; i < sprite.bitmap.length; i++) {
         for (var j = 0; j < sprite.bitmap[0].length; j++) {
           var color = sprite.paletteAssignment[sprite.bitmap[i][j]];
-          this.setPixel(sprite.x + i, sprite.y + j, color);
+          this.setPixel(sprite.x + j, sprite.y + i, color);
         }
       }
     });
