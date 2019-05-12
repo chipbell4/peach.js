@@ -19,6 +19,10 @@
 
   Peach.prototype.setPixel = function(i, j, paletteIndex) {
     var color = this.palette[paletteIndex];
+    if (color === undefined) {
+      return;
+    }
+
     var index = (j * this.width + i) * 4;
     this.imageData.data[index] = color[0];
     this.imageData.data[index + 1] = color[1];
