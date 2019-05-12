@@ -36,7 +36,23 @@
     for (var k = 0; k < this.sprites.length; k++) {
       var sprite = this.sprites[k];
       for (var i = 0; i < sprite.bitmap.length; i++) {
+        if (sprite.y + i < 0) {
+          continue;
+        }
+
+        if (sprite.y + i >= this.width) {
+          break;
+        }
+
         for (var j = 0; j < sprite.bitmap[0].length; j++) {
+          if (sprite.x + j < 0) {
+            continue;
+          }
+
+          if (sprite.x + j >= this.height) {
+            break;
+          }
+
           var color = sprite.paletteAssignment[sprite.bitmap[i][j]];
           this.setPixel(sprite.x + j, sprite.y + i, color);
         }
