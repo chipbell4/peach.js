@@ -33,8 +33,8 @@
   Peach.prototype.render = function() {
     this.imageData = new ImageData(this.width, this.height);
 
-    for (var i = 0; i < this.sprites.length; i++) {
-      var sprite = this.sprites[i];
+    for (var k = 0; k < this.sprites.length; k++) {
+      var sprite = this.sprites[k];
       for (var i = 0; i < sprite.bitmap.length; i++) {
         for (var j = 0; j < sprite.bitmap[0].length; j++) {
           var color = sprite.paletteAssignment[sprite.bitmap[i][j]];
