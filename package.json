@@ -4,8 +4,8 @@
   "description": "A 2D game library for the canvas",
   "main": "peach.js",
   "scripts": {
-    "prettier": "prettier --write index.js",
-    "test": "eslint index.js"
+    "prettier": "prettier --write peach.js",
+    "test": "eslint peach.js"
   },
   "repository": {
     "type": "git",
