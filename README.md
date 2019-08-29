@@ -3,7 +3,7 @@ peach.js
 ![Build Status](https://travis-ci.org/chipbell4/peach.js.svg?branch=develop)
 
 ## Usage
-Create a render by instantiating a `Peach` instance:
+Create a renderer by instantiating a `Peach` instance:
 
 ```javascript
 var width = 320;
@@ -32,7 +32,7 @@ var bitmap = [
 
 var paletteAssignment = {
     0: 2, // bitmap value 0 is assigned to palette color 2 (blue)
-    1: 1 // bitmpa value 1 is assigned to palette color 1 (green)
+    1: 1 // bitmap value 1 is assigned to palette color 1 (green)
 };
 var sprite = new Peach.Sprite(bitmap, paletteAssignment);
 sprite.x = 20;
