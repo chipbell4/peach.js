@@ -5,7 +5,8 @@
   "main": "peach.js",
   "scripts": {
     "prettier": "prettier --write peach.js",
-    "test": "eslint peach.js"
+    "test": "eslint peach.js",
+    "build": "rollup -c rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,8 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "prettier": "^1.12.1"
+    "prettier": "^1.12.1",
+    "rollup": "^1.20.3",
+    "rollup-plugin-terser": "^5.1.1"
   }
 }
