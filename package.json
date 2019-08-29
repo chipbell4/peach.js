@@ -1,6 +1,6 @@
 {
   "name": "peach.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A 2D game library for the canvas",
   "main": "peach.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git://github.com/chipbell4/peach.js.git"
   },
-  "eslintConfig" : {
+  "eslintConfig": {
     "extends": "eslint:recommended",
     "env": {
       "browser": true,
