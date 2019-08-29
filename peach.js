@@ -23,7 +23,7 @@
       return;
     }
 
-    var index = (j * this.width + i) * 4;
+    var index = (j * this.width + i) << 2;
     this.imageData.data[index] = color[0];
     this.imageData.data[index + 1] = color[1];
     this.imageData.data[index + 2] = color[2];
