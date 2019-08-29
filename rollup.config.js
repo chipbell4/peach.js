@@ -4,7 +4,10 @@ export default {
   input: 'src/peach.js',
   output: {
     file: 'peach.js',
-    format: 'iife'
+    format: 'iife',
+    name: 'Peach'
   },
-  plugins: [terser()]
+  plugins: [
+    terser()
+  ]
 }
