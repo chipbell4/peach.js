@@ -1,4 +1,4 @@
-import Sprite from './sprite.js';
+import Sprite from "./sprite.js";
 
 var Peach = function(width, height, palette) {
   this.palette = palette.map(rawColor => {

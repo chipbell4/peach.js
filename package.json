@@ -4,7 +4,7 @@
   "description": "A 2D game library for the canvas",
   "main": "peach.js",
   "scripts": {
-    "prettier": "prettier --write peach.js",
+    "prettier": "prettier --write src/*.js",
     "test": "eslint peach.js",
     "build": "rollup -c rollup.config.js"
   },
