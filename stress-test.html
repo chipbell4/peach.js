@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <body>
+<style>
+canvas {
+    transform-origin: top left;
+    transform: scale(3);
+}
+</style>
+<script type="module">
+import Peach from './src/Peach.js';
+
+var paths = [];
+
+var renderer = new Peach(200, 200, [0xff0000, 0x00ff00, 0x0000ff]);
+document.body.appendChild(renderer.canvas);
+window.renderer = renderer;
+
+var bitmap = [];
+for (var i = 0; i < 8; i++) {
+  var row = [];
+  for (var j = 0; j < 8; j++) {
+    row.push(0);
+  }
+  bitmap.push(row);
+}
+
+var makeAnimator = () => {
+    const rand = (a, b) => a + (b - a) * Math.random();
+
+    const cx = rand(50, 150);
+    const cy = rand(50, 150);
+    const theta0 = rand(0, Math.PI * 2);
+
+    return (k) => {
+        return {
+            x: Math.floor(cx + 50 * Math.cos(k + theta0)),
+            y: Math.floor(cy + 50 * Math.sin(k + theta0)),
+        }
+    };
+};
+
+var addASprite = () => {
+  const sprite = new Peach.Sprite(bitmap, [Math.floor(Math.random() * 3)]);
+  renderer.sprites.push(sprite);
+  sprite.x = Math.floor(Math.random() * 200);
+  sprite.y = Math.floor(Math.random() * 200);
+};
+
+var addSomeMore = () => {
+    for (var i = 0; i < 500; i++) {
+      addASprite();
+    }
+
+    console.log('Total Sprites = ', renderer.sprites.length);
+    if (renderer.sprites.length >= 10000) {
+      requestAnimationFrame(render);
+    } else {
+      requestAnimationFrame(addSomeMore);
+    }
+};
+
+function render() {
+    requestAnimationFrame(render);
+    renderer.render();
+};
+
+requestAnimationFrame(addSomeMore);
+
+</script>
+    </body>
+</html>
