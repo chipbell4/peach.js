@@ -48,7 +48,7 @@ var addASprite = () => {
 };
 
 var addSomeMore = () => {
-    for (var i = 0; i < 500; i++) {
+    for (var i = 0; i < 50; i++) {
       addASprite();
     }
 
@@ -66,6 +66,7 @@ function render() {
 };
 
 requestAnimationFrame(addSomeMore);
+requestAnimationFrame(render);
 
 </script>
     </body>
