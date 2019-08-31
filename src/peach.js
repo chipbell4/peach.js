@@ -32,7 +32,7 @@ Peach.prototype.setPixel = function(i, j, paletteIndex) {
 };
 
 Peach.prototype.render = function() {
-  this.imageData = new ImageData(this.width, this.height);
+  this.imageData.data.fill(0);
 
   for (var k = 0; k < this.sprites.length; k++) {
     var sprite = this.sprites[k];
