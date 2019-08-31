@@ -53,7 +53,7 @@ var addSomeMore = () => {
     }
 
     console.log('Total Sprites = ', renderer.sprites.length);
-    if (renderer.sprites.length >= 10000) {
+    if (renderer.sprites.length >= 3000) {
       requestAnimationFrame(render);
     } else {
       requestAnimationFrame(addSomeMore);
