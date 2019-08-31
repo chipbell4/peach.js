@@ -11,7 +11,7 @@ const Peach = function(width, height, palette) {
   this.canvas = document.createElement('canvas');
   this.canvas.width = this.width = width;
   this.canvas.height = this.height = height;
-  this.canvas.style.imageRendering = 'pixelated';
+  this.canvas.style.cssText = 'image-rendering: -moz-crisp-edges; image-rendering: pixelated';
 
   this.context = this.canvas.getContext('2d');
   this.imageData = this.context.getImageData(0, 0, width, height);
