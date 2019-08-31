@@ -25,21 +25,6 @@ for (var i = 0; i < 8; i++) {
   bitmap.push(row);
 }
 
-var makeAnimator = () => {
-    const rand = (a, b) => a + (b - a) * Math.random();
-
-    const cx = rand(50, 150);
-    const cy = rand(50, 150);
-    const theta0 = rand(0, Math.PI * 2);
-
-    return (k) => {
-        return {
-            x: Math.floor(cx + 50 * Math.cos(k + theta0)),
-            y: Math.floor(cy + 50 * Math.sin(k + theta0)),
-        }
-    };
-};
-
 var addASprite = () => {
   const sprite = new Peach.Sprite(bitmap, [Math.floor(Math.random() * 3)]);
   renderer.sprites.push(sprite);
