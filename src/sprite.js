@@ -1,4 +1,4 @@
-var Sprite = function(bitmap, paletteAssignment) {
+const Sprite = function(bitmap, paletteAssignment) {
   this.bitmap = bitmap;
   this.paletteAssignment = paletteAssignment;
   this.x = 0;
