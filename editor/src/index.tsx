@@ -5,8 +5,10 @@ import Palette from './palette';
 
 const App = () => {
     return (
-        <h1>Sprite Editor</h1>
-        <Palette startingColors={["#ff0000", "#00ff00", "#0000ff"]} />
+        <div>
+            <h1>Sprite Editor</h1>
+            <Palette startingColors={["#ff0000", "#00ff00", "#0000ff"]} />
+        </div>
     );
 };
 
