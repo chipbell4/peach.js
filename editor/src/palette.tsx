@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Palette = ({ startingColors = ["#ff0000"] }) => {
+const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors) {} }) => {
 
     const [colors, setColors] = React.useState(startingColors);
 
@@ -8,11 +8,13 @@ const Palette = ({ startingColors = ["#ff0000"] }) => {
         const onChange = (event) => {
             colors[index] = event.target.value;
             setColors([...colors]);
+            onColorChange([...colors]);
         };
 
         const removeColor = () => {
             const newColors = colors.filter((_, i) => i !== index);
             setColors(newColors);
+            onColorChange(newColors);
         };
 
         return (
@@ -27,7 +29,9 @@ const Palette = ({ startingColors = ["#ff0000"] }) => {
     });
 
     const addColor = () => {
-        setColors([...colors, "#000000"]);
+        const newColors = [...colors, "#000000"];
+        setColors(newColors);
+        onColorChange(newColors);
     };
 
     return (
