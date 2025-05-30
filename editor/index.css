@@ -4,3 +4,22 @@ body {
     margin-right: auto;
     font-family: sans-serif;
 }
+
+.palette button.add {
+    font-size: 20px;
+    display: block;
+}
+
+.palette .color-pickers {
+    display: flex;
+}
+
+.palette .color-picker-container {
+    margin: 0.75em;
+    border: 2px solid #ccc;
+    padding: 0.25em;
+}
+
+.palette .color-picker-container button.remove {
+    margin-left: 1.5em;
+}

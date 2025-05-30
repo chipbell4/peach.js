@@ -16,12 +16,12 @@ const Palette = ({ startingColors = ["#ff0000"] }) => {
         };
 
         return (
-            <div key={index}>
+            <div class="color-picker-container" key={index}>
                 <label>
                     <input type="color" value={color} onChange={onChange} style={{ width: '100%' }} />
-                    { color }
+                    <span class="color-picker-text">Color {index + 1} { color }</span>
                 </label>
-                <button onClick={removeColor}>&times;</button>
+                <button class="remove" onClick={removeColor}>&times;</button>
             </div>
         );
     });
@@ -31,10 +31,12 @@ const Palette = ({ startingColors = ["#ff0000"] }) => {
     };
 
     return (
-        <div>
-            <h1>Palette</h1>
-            <button onClick={addColor}>Add Color</button>
-            { pickers }
+        <div class="palette">
+            <h2>Palette</h2>
+            <button class="add" onClick={addColor}>Add Color</button>
+            <div class="color-pickers">
+                { pickers }
+            </div>
         </div>
     );
 }
