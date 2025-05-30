@@ -5,13 +5,8 @@ import Palette from './palette';
 
 const App = () => {
     return (
-        <div>
-        <h1>Welcome to the Editor</h1>
-        <p>This is a placeholder for the editor component.</p>
-        <p>
-            <Palette startingColors={["#ff0000", "#00ff00", "#0000ff"]} />
-        </p>
-        </div>
+        <h1>Sprite Editor</h1>
+        <Palette startingColors={["#ff0000", "#00ff00", "#0000ff"]} />
     );
 };
 
