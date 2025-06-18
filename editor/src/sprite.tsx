@@ -42,8 +42,10 @@ const Sprite = ({ width = 16, height = 16, color = null, palette = ["#f00"] }) =
     return (
         <div className="sprite-editor">
             <h2>Sprite Editor</h2>
-            <table className="sprite-grid" cellspacing="0" onMouseDown={() => setMouseDown(true)} onMouseUp={() => setMouseDown(false)}>
-                { rows }
+            <table className="sprite-grid" cellSpacing="0" onMouseDown={() => setMouseDown(true)} onMouseUp={() => setMouseDown(false)}>
+                <tbody>
+                    { rows }
+                </tbody>
             </table>
         </div>
     );

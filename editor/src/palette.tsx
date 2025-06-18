@@ -32,8 +32,8 @@ const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors
         return (
             <div className="color-picker-container" key={index} style={containerStyle}>
                 <input type="color" value={color} onChange={onChange} style={{ width: '100%' }} />
-                <span class="color-picker-text" onClick={onSelect}>Color {index + 1} { color }</span>
-                <button class="remove" onClick={removeColor}>&times;</button>
+                <span className="color-picker-text" onClick={onSelect}>Color {index + 1} { color }</span>
+                <button className="remove" onClick={removeColor}>&times;</button>
             </div>
         );
     });
@@ -45,11 +45,11 @@ const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors
     };
 
     return (
-        <div class="palette">
+        <div className="palette">
             <h2>Palette</h2>
-            <button class="add" onClick={addColor}>Add Color</button>
-            <div class="color-pickers">
-                <div class="color-picker-container">
+            <button className="add" onClick={addColor}>Add Color</button>
+            <div className="color-pickers">
+                <div className="color-picker-container">
                     <label onClick={() => onSelectColor(null)}>
                         Erase
                     </label>
