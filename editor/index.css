@@ -23,3 +23,8 @@ body {
 .palette .color-picker-container button.remove {
     margin-left: 1.5em;
 }
+
+.sprite-grid {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
