@@ -24,13 +24,13 @@ const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors
             onColorChange(newColors);
         };
 
-        const containerStyle: Record<string, string> = {};
+        let className = "color-picker-container";
         if (color === selectedColor) {
-            containerStyle.border = "1px solid black";
+            className += " selected";
         }
 
         return (
-            <div className="color-picker-container" key={index} style={containerStyle}>
+            <div className={className} key={index}>
                 <input type="color" value={color} onChange={onChange} style={{ width: '100%' }} />
                 <span className="color-picker-text" onClick={onSelect}>Color {index + 1} { color }</span>
                 <button className="remove" onClick={removeColor}>&times;</button>
@@ -49,15 +49,15 @@ const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors
         onSelectColor(null);
     }
 
+    const eraseContainerClass = selectedColor === null ? "color-picker-container selected" : "color-picker-container";
+
     return (
         <div className="palette">
             <h2>Palette</h2>
             <button className="add" onClick={addColor}>Add Color</button>
             <div className="color-pickers">
-                <div className="color-picker-container">
-                    <label onClick={onSelectErase}>
-                        Erase
-                    </label>
+                <div className={eraseContainerClass} onClick={onSelectErase}>
+                    <label>Erase</label>
                 </div>  
                 { pickers }
             </div>

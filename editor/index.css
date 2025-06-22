@@ -20,6 +20,10 @@ body {
     padding: 0.25em;
 }
 
+.palette .color-picker-container.selected {
+    border-color: #000;
+}
+
 .palette .color-picker-container button.remove {
     margin-left: 1.5em;
 }
