@@ -44,13 +44,18 @@ const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors
         onColorChange(newColors);
     };
 
+    const onSelectErase = () => {
+        setSelectedColor(null);
+        onSelectColor(null);
+    }
+
     return (
         <div className="palette">
             <h2>Palette</h2>
             <button className="add" onClick={addColor}>Add Color</button>
             <div className="color-pickers">
                 <div className="color-picker-container">
-                    <label onClick={() => onSelectColor(null)}>
+                    <label onClick={onSelectErase}>
                         Erase
                     </label>
                 </div>  
