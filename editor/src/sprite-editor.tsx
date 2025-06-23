@@ -1,12 +1,13 @@
 import React from 'react';
 
-const Sprite = ({ width = 16, height = 16, color = null, palette = ["#f00"] }) => {
+const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"] }) => {
     const [mouseDown, setMouseDown] = React.useState(false);
-    const [sprite, setSprite] = React.useState(Array.from({ length: height }, () => Array(width).fill(null)));
+    const [currentSprite, setSprite] = React.useState(sprite);
 
     const fill = (row, col) => {
-        const newSprite = sprite.map((r, i) => r.map((c, j) => (i === row && j === col ? color : c)));
+        const newSprite = currentSprite.map((r, i) => r.map((c, j) => (i === row && j === col ? color : c)));
         setSprite(newSprite);
+        onSpriteChange(newSprite);
     };
 
     const renderCell = (row, col) => {
@@ -17,8 +18,8 @@ const Sprite = ({ width = 16, height = 16, color = null, palette = ["#f00"] }) =
             cursor: "pointer",
         }
 
-        if (sprite[row][col] !== null) {
-            cellStyle.backgroundColor = palette[sprite[row][col]];
+        if (currentSprite[row][col] !== null) {
+            cellStyle.backgroundColor = palette[currentSprite[row][col]];
         }
 
         return (
@@ -33,9 +34,9 @@ const Sprite = ({ width = 16, height = 16, color = null, palette = ["#f00"] }) =
         );
     };
 
-    const rows = Array.from({ length: height }, (_, rowIndex) => (
+    const rows = Array.from({ length: currentSprite.length }, (_, rowIndex) => (
         <tr key={rowIndex}>
-            {sprite[rowIndex].map((_, colIndex) => renderCell(rowIndex, colIndex))}
+            {currentSprite[rowIndex].map((_, colIndex) => renderCell(rowIndex, colIndex))}
         </tr>
     ));
 
@@ -51,4 +52,4 @@ const Sprite = ({ width = 16, height = 16, color = null, palette = ["#f00"] }) =
     );
 }
 
-export default Sprite;
+export default SpriteEditor;
