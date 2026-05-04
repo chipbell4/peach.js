@@ -2,7 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 
 export default {
-  input: 'src/peach.ts',
+  input: 'src/index.ts',
   output: {
     file: 'peach.js',
     format: 'es',
@@ -10,8 +10,7 @@ export default {
   },
   plugins: [
     typescript({
-      declaration: true,
-      declarationDir: '.',
+      declaration: false,
     }),
     terser()
   ]

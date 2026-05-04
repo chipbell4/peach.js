@@ -1,7 +1,7 @@
 /**
  * Sprite class for managing bitmap-based sprites with palette assignment
  */
-export default class Sprite {
+export declare class Sprite {
     bitmap: number[][];
     paletteAssignment: number[];
     x: number;

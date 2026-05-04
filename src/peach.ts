@@ -1,4 +1,4 @@
-import Sprite from './sprite.js';
+import { Sprite } from './sprite.js';
 
 /**
  * Peach - A 2D game library for the canvas
@@ -12,7 +12,7 @@ interface PeachOptions {
 type PaletteEntry = [number, number, number];
 type PaletteArray = PaletteEntry[];
 
-export default class Peach {
+export class Peach {
   palette: PaletteArray;
   canvas: HTMLCanvasElement;
   width: number;
@@ -93,6 +93,4 @@ export default class Peach {
 
     this.context.putImageData(this.imageData, 0, 0);
   }
-
-  static Sprite = Sprite;
 }
