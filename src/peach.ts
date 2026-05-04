@@ -93,4 +93,33 @@ export class Peach {
 
     this.context.putImageData(this.imageData, 0, 0);
   }
+
+  /**
+   * Find the first sprite with the given constructor name
+   * @param name The constructor name to search for
+   * @returns The sprite if found, undefined otherwise
+   */
+  findSprite(name: string): Sprite | undefined {
+    return this.sprites.find((s) => s.constructor.name === name);
+  }
+
+  /**
+   * Find all sprites with the given constructor name
+   * @param name The constructor name to search for
+   * @returns Array of matching sprites
+   */
+  findSprites(name: string): Sprite[] {
+    return this.sprites.filter((s) => s.constructor.name === name);
+  }
+
+  /**
+   * Remove a sprite from the renderer
+   * @param sprite The sprite to remove
+   */
+  despawn(sprite: Sprite): void {
+    const index = this.sprites.indexOf(sprite);
+    if (index > -1) {
+      this.sprites.splice(index, 1);
+    }
+  }
 }

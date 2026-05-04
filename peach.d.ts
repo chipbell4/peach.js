@@ -27,4 +27,7 @@ export declare class Peach {
 
   setPixel(i: number, j: number, paletteIndex: number): void;
   render(): void;
+  findSprite(name: string): Sprite | undefined;
+  findSprites(name: string): Sprite[];
+  despawn(sprite: Sprite): void;
 }
