@@ -1,7 +1,7 @@
 /**
  * Sprite class for managing bitmap-based sprites with palette assignment
  */
-export type Bitmap = number[][];
+export type Bitmap = (number | null)[][];
 
 export class Sprite {
   bitmap: Bitmap;

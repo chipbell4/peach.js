@@ -85,8 +85,11 @@ export class Peach {
             break;
           }
 
-          const color = sprite.paletteAssignment[sprite.bitmap[i][j]];
-          this.setPixel(sprite.x + j, sprite.y + i, color);
+          var pixel = sprite.bitmap[i][j];
+          if (pixel !== null) {
+            const color = sprite.paletteAssignment[pixel];
+            this.setPixel(sprite.x + j, sprite.y + i, color);
+          }
         }
       }
     }
