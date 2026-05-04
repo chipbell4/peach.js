@@ -1,10 +1,41 @@
+export declare class EventEmitter {
+  addEventListener(name: string, callback: Function): void;
+  removeEventListener(name: string, callback: Function): boolean;
+  trigger(name: string, data?: any): void;
+}
+
+export declare type Bitmap = number[][];
+
+export declare interface AnimatorOptions {
+  sprite: Sprite;
+  bitmaps: Bitmap[];
+  fps?: number;
+  loop?: boolean;
+}
+
+export declare class Animator extends EventEmitter {
+  sprite: Sprite;
+  bitmaps: Bitmap[];
+  fps: number;
+  loop: boolean;
+  started: boolean;
+  currentAnimationFrame: number;
+  timeTillNextFrame: number;
+
+  constructor(options: AnimatorOptions);
+
+  start(): void;
+  stop(): void;
+  update(deltaTime?: number): void;
+}
+
 export declare class Sprite {
-  bitmap: number[][];
+  bitmap: Bitmap;
   paletteAssignment: number[];
   x: number;
   y: number;
 
-  constructor(bitmap: number[][], paletteAssignment: number[]);
+  constructor(bitmap: Bitmap, paletteAssignment: number[]);
 
   get width(): number;
   get height(): number;

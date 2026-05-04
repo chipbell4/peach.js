@@ -75,3 +75,111 @@ if (sprite1.collides(sprite2)) {
   console.log('Collision detected!');
 }
 ```
+
+### Managing Sprites
+
+Use helper methods to find and remove sprites:
+
+```typescript
+// Find the first sprite with a given constructor name
+const player = renderer.findSprite('Player');
+
+// Find all sprites of a type
+const enemies = renderer.findSprites('Enemy');
+
+// Remove a sprite from the renderer
+renderer.despawn(enemy);
+```
+
+## Advanced Features
+
+### Event Emitter
+
+`EventEmitter` is a base class for creating custom event-driven classes:
+
+```typescript
+import { EventEmitter } from 'peach.js';
+
+class Player extends EventEmitter {
+  constructor() {
+    super();
+  }
+
+  takeDamage(amount: number) {
+    this.trigger('damage', { amount });
+  }
+}
+
+const player = new Player();
+
+// Listen for events
+player.addEventListener('damage', (data) => {
+  console.log(`Player took ${data.amount} damage!`);
+});
+
+player.takeDamage(10);
+
+// Remove listeners
+player.removeEventListener('damage', callback);
+```
+
+### Sprite Animation
+
+Animate sprite frames with the `Animator` class:
+
+```typescript
+import { Animator, Sprite } from 'peach.js';
+
+// Define animation frames (each frame is a bitmap)
+const walkFrames = [
+  [[0, 1], [1, 1]],  // Frame 1
+  [[1, 0], [1, 1]],  // Frame 2
+  [[0, 1], [1, 1]]   // Frame 3
+];
+
+const paletteAssignment = [2, 1];
+const sprite = new Sprite(walkFrames[0], paletteAssignment);
+
+// Create an animator
+const animator = new Animator({
+  sprite: sprite,
+  bitmaps: walkFrames,
+  fps: 6,           // 6 frames per second
+  loop: true        // Loop the animation
+});
+
+// Listen for animation events
+animator.addEventListener('animation:complete', (anim) => {
+  console.log('Animation finished!');
+});
+
+animator.addEventListener('animation:stopped', (anim) => {
+  console.log('Animation stopped!');
+});
+
+// Start the animation
+animator.start();
+
+// In your game loop, update the animator
+function gameLoop() {
+  const deltaTime = 1 / 60; // 60 FPS
+  animator.update(deltaTime);
+  renderer.render();
+  requestAnimationFrame(gameLoop);
+}
+
+// Stop the animation
+animator.stop();
+```
+
+#### Animator Options
+
+- `sprite` (Sprite): The sprite to animate
+- `bitmaps` (number[][][]): Array of bitmap frames
+- `fps` (number, optional): Frames per second (default: 3)
+- `loop` (boolean, optional): Whether to loop the animation (default: false)
+
+#### Animator Events
+
+- `'animation:complete'` - Triggered when animation finishes (non-looping only)
+- `'animation:stopped'` - Triggered when animation is manually stopped
