@@ -1,6 +1,6 @@
 {
   "name": "peach.js",
-  "version": "1.1.4",
+  "version": "2.0.0-alpha.1",
   "description": "A 2D game library for the canvas",
   "type": "module",
   "main": "peach.js",
