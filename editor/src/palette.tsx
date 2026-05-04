@@ -58,7 +58,7 @@ const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors
             <div className="color-pickers">
                 <div className={eraseContainerClass} onClick={onSelectErase}>
                     <label>Erase</label>
-                </div>  
+                </div>
                 { pickers }
             </div>
         </div>

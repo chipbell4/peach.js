@@ -14,14 +14,16 @@ const App = () => {
     const [sprite, setSprite] = React.useState(Array.from({ length: height }, () => Array(width).fill(null)));
 
     return (
-        <div className="flex-container">
+        <>
             <h1>Sprite Editor</h1>
-            <Palette startingColors={colors} onColorChange={setColors} onSelectColor={(c) => setWorkingColor(c)}/>
             <div className="flex-container">
-                <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColor} palette={colors}/>
-                <Code sprite={sprite} />
+                <Palette startingColors={colors} onColorChange={setColors} onSelectColor={(c) => setWorkingColor(c)}/>
+                <div className="editor-column">
+                    <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColor} palette={colors}/>
+                    <Code sprite={sprite} />
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

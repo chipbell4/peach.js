@@ -1,5 +1,5 @@
 body {
-    max-width: 800px;
+    max-width: 1800px;
     margin-left: auto;
     margin-right: auto;
     font-family: sans-serif;
@@ -7,21 +7,31 @@ body {
 
 .flex-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+}
+
+.flex-container > * {
+    flex: 0 1 calc(33.333% - 0.67em);
+    min-width: 0;
 }
 
 h1, h2, h3 {
     text-align: center;
 }
 
+.palette {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    max-width: 300px;
+}
+
 .palette button.add {
     font-size: 20px;
     display: block;
-}
-
-.palette .color-pickers {
-    display: flex;
 }
 
 .palette .color-picker-container {
@@ -38,9 +48,15 @@ h1, h2, h3 {
     margin-left: 1.5em;
 }
 
+.editor-column {
+    text-align: center;
+}
+
 .sprite-grid {
     border-spacing: 0;
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .code-container .rendered-code {
