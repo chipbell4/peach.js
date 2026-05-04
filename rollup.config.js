@@ -1,19 +1,18 @@
+import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
-import babel from 'rollup-plugin-babel';
 
 export default {
-  input: 'src/peach.js',
+  input: 'src/peach.ts',
   output: {
     file: 'peach.js',
-    format: 'iife',
-    name: 'Peach'
+    format: 'es',
+    sourcemap: true
   },
   plugins: [
-    babel({
-      presets: [
-        ['@babel/preset-env', { targets: { ie: '11' } }]
-      ]
+    typescript({
+      declaration: true,
+      declarationDir: '.',
     }),
     terser()
   ]
-}
+};

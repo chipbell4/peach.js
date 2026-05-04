@@ -2,40 +2,33 @@
   "name": "peach.js",
   "version": "1.1.4",
   "description": "A 2D game library for the canvas",
+  "type": "module",
   "main": "peach.js",
+  "types": "peach.d.ts",
+  "exports": {
+    "types": "./peach.d.ts",
+    "default": "./peach.js"
+  },
   "scripts": {
-    "test": "eslint src/*.js",
-    "lint:fix": "eslint --fix  src/*.js",
+    "test": "tsc --noEmit",
     "build": "rollup -c rollup.config.js"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/chipbell4/peach.js.git"
   },
-  "eslintConfig": {
-    "extends": "@pbs/eslint-config-pbs-kids",
-    "env": {
-      "browser": true,
-      "es6": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "project": "./tsconfig.json",
-      "sourceType": "module"
-    }
-  },
+
   "author": "Chip Bell",
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/chipbell4/peach.js/issues"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@pbs/eslint-config-pbs-kids": "^1.0.2",
-    "eslint": "^5.16.0",
-    "rollup": "^1.20.3",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-terser": "^5.1.1"
+    "@rollup/plugin-typescript": "^12.0.0",
+    "@types/node": "^20.0.0",
+    "rollup": "^4.0.0",
+    "rollup-plugin-terser": "^5.1.1",
+    "tslib": "^2.6.0",
+    "typescript": "^5.3.0"
   }
 }
