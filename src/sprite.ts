@@ -1,13 +1,15 @@
 /**
  * Sprite class for managing bitmap-based sprites with palette assignment
  */
+export type Bitmap = number[][];
+
 export class Sprite {
-  bitmap: number[][];
+  bitmap: Bitmap;
   paletteAssignment: number[];
   x: number;
   y: number;
 
-  constructor(bitmap: number[][], paletteAssignment: number[]) {
+  constructor(bitmap: Bitmap, paletteAssignment: number[]) {
     this.bitmap = bitmap;
     this.paletteAssignment = paletteAssignment;
     this.x = 0;
