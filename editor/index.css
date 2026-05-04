@@ -38,6 +38,7 @@ h1, h2, h3 {
     margin: 0.75em;
     border: 2px solid #ccc;
     padding: 0.25em;
+    cursor: pointer;
 }
 
 .palette .color-picker-container.selected {
