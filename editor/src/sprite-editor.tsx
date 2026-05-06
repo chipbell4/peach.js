@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { DimensionInput } from './dimension';
+
 const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"] }) => {
     const [mouseDown, setMouseDown] = React.useState(false);
     const [currentSprite, setSprite] = React.useState(sprite);
@@ -34,6 +36,46 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
         );
     };
 
+    const onDimensionsChange = (w: number, h: number) => {
+        const oldWidth = currentSprite[0].length;
+        const oldHeight = currentSprite.length;
+
+        const newSprite = currentSprite.map(r => {
+            return r.map(v => v);
+        });
+
+        // If the new width is smaller, trim off the end
+        if (oldWidth > w) {
+            for (const row of newSprite) {
+                while(row.length > w) {
+                    row.pop();
+                }
+            }
+        }
+        // If the new width is bigger, add a null on the end
+        if (oldWidth < w) {
+            for (const row of newSprite) {
+                row.push(null);
+            }
+        }
+
+        // if the new height is smaller, drop records off the end
+        if (oldHeight > h) {
+            while (newSprite.length > h) {
+                newSprite.pop();
+            }
+        }
+
+        // if the new height is greater, add a new row
+        if (oldHeight < h) {
+            while (newSprite.length < h) {
+                newSprite.push(Array(w).fill(null));
+            }
+        }
+
+        setSprite(newSprite);
+    };
+
     const rows = Array.from({ length: currentSprite.length }, (_, rowIndex) => (
         <tr key={rowIndex}>
             {currentSprite[rowIndex].map((_, colIndex) => renderCell(rowIndex, colIndex))}
@@ -42,7 +84,7 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
 
     return (
         <div className="sprite-editor">
-            <h2>Sprite Editor</h2>
+            <DimensionInput initialWidth={sprite[0].length} initialHeight={sprite.length} onChange={onDimensionsChange} />
             <table className="sprite-grid" cellSpacing="0" onMouseDown={() => setMouseDown(true)} onMouseUp={() => setMouseDown(false)}>
                 <tbody>
                     { rows }
