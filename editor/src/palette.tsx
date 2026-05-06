@@ -8,8 +8,7 @@ interface PaletteProps {
 
 type Handler = React.ChangeEventHandler<HTMLInputElement, HTMLInputElement>;
 
-const Palette = ({ startingColors = ["#ff0000"], onPaletteChange: onColorChange = function(colors) {}, onSelectColor = function(color) {} }: PaletteProps) => {
-
+export const Palette = ({ startingColors = ["#ff0000"], onPaletteChange: onColorChange = function(colors) {}, onSelectColor = function(color) {} }: PaletteProps) => {
     const [colors, setColors] = React.useState(startingColors);
     const [selectedColor, setSelectedColor] = React.useState<number | null>(null);
 
@@ -73,4 +72,24 @@ const Palette = ({ startingColors = ["#ff0000"], onPaletteChange: onColorChange 
     );
 }
 
-export default Palette;
+interface PreviewProps {
+    colors: string[];
+}
+const Preview = (props: PreviewProps) => {
+    const squares = props.colors.map((c, i) => {
+        const style = {
+            backgroundColor: c;
+        }
+        return (
+            <span key={i} style={style}>
+                &nbsp;
+            </span>
+        );
+    });
+
+    return (
+        <>
+        { squares }
+        </>
+    );
+}

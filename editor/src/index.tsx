@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import Palette from './palette';
+import { Palette } from './palette';
 import SpriteEditor from './sprite-editor';
 import Code from './code';
 
