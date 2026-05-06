@@ -20,7 +20,7 @@ const App = () => {
     return (
         <>
             <h1>Sprite Editor</h1>
-            <Palette startingColors={colors} onColorChange={setColors} onSelectColor={onSelectColor}/>
+            <Palette startingColors={colors} onPaletteChange={setColors} onSelectColor={onSelectColor}/>
             <div className="editor-column">
                 <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColorIndex} palette={colors}/>
                 <Code sprite={sprite} />

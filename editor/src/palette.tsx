@@ -2,13 +2,13 @@ import React from 'react';
 
 interface PaletteProps {
     startingColors: string[];
-    onColorChange: (colors: string[]) => void;
+    onPaletteChange: (colors: string[]) => void;
     onSelectColor: (color: number | null) => void;
 }
 
 type Handler = React.ChangeEventHandler<HTMLInputElement, HTMLInputElement>;
 
-const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors) {}, onSelectColor = function(color) {} }: PaletteProps) => {
+const Palette = ({ startingColors = ["#ff0000"], onPaletteChange: onColorChange = function(colors) {}, onSelectColor = function(color) {} }: PaletteProps) => {
 
     const [colors, setColors] = React.useState(startingColors);
     const [selectedColor, setSelectedColor] = React.useState<number | null>(null);
