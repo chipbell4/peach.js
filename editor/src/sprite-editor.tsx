@@ -2,12 +2,27 @@ import React from 'react';
 
 import { DimensionInput } from './dimension';
 
-const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"] }) => {
+type Bitmap = (number | null)[][];
+
+interface SpriteEditorProps {
+    sprite: Bitmap;
+    onSpriteChange: (s: Bitmap) => void;
+    color: number | null;
+    palette: string[];
+}
+
+const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"] }: SpriteEditorProps) => {
     const [mouseDown, setMouseDown] = React.useState(false);
     const [currentSprite, setSprite] = React.useState(sprite);
+    const [activeColor, setActiveColor] = React.useState(color);
+
+    // silly nonsense to get React to re-render
+    React.useEffect(() => {
+        setActiveColor(color)
+    }, [color]);
 
     const fill = (row: number, col: number) => {
-        const newSprite = currentSprite.map((r, i) => r.map((c, j) => (i === row && j === col ? color : c)));
+        const newSprite = currentSprite.map((r, i) => r.map((c, j) => (i === row && j === col ? activeColor : c)));
         setSprite(newSprite);
         onSpriteChange(newSprite);
     };

@@ -7,7 +7,11 @@ import Code from './code';
 
 const App = () => {
     const [colors, setColors] = React.useState(["#ff0000", "#00ff00", "#0000ff"]);
-    const [workingColor, setWorkingColor] = React.useState(colors[0]);
+    const [workingColorIndex, setWorkingColorIndex] = React.useState<number | null>(null);
+
+    const onSelectColor = (index: number | null) => {
+        setWorkingColorIndex(index);
+    }
 
     const height = 16;
     const width = 16;
@@ -17,9 +21,9 @@ const App = () => {
         <>
             <h1>Sprite Editor</h1>
             <div className="flex-container">
-                <Palette startingColors={colors} onColorChange={setColors} onSelectColor={(c) => setWorkingColor(c)}/>
+                <Palette startingColors={colors} onColorChange={setColors} onSelectColor={onSelectColor}/>
                 <div className="editor-column">
-                    <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColor} palette={colors}/>
+                    <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColorIndex} palette={colors}/>
                     <Code sprite={sprite} />
                 </div>
             </div>

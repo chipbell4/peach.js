@@ -1,17 +1,25 @@
 import React from 'react';
 
-const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors) {}, onSelectColor = function(color) {} }) => {
+interface PaletteProps {
+    startingColors: string[];
+    onColorChange: (colors: string[]) => void;
+    onSelectColor: (color: number | null) => void;
+}
+
+type Handler = React.ChangeEventHandler<HTMLInputElement, HTMLInputElement>;
+
+const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors) {}, onSelectColor = function(color) {} }: PaletteProps) => {
 
     const [colors, setColors] = React.useState(startingColors);
-    const [selectedColor, setSelectedColor] = React.useState(null);
+    const [selectedColor, setSelectedColor] = React.useState<number | null>(null);
 
     const pickers = colors.map((color, index) => {
         const onSelect = () => {
-            setSelectedColor(color);
+            setSelectedColor(index);
             onSelectColor(index);
         }
 
-        const onChange = (event) => {
+        const onChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (event) => {
             colors[index] = event.target.value;
             setColors([...colors]);
             onColorChange([...colors]);
@@ -25,7 +33,7 @@ const Palette = ({ startingColors = ["#ff0000"], onColorChange = function(colors
         };
 
         let className = "color-picker-container";
-        if (color === selectedColor) {
+        if (selectedColor !== null && color === colors[selectedColor]) {
             className += " selected";
         }
 
