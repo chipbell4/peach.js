@@ -6,13 +6,13 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
     const [mouseDown, setMouseDown] = React.useState(false);
     const [currentSprite, setSprite] = React.useState(sprite);
 
-    const fill = (row, col) => {
+    const fill = (row: number, col: number) => {
         const newSprite = currentSprite.map((r, i) => r.map((c, j) => (i === row && j === col ? color : c)));
         setSprite(newSprite);
         onSpriteChange(newSprite);
     };
 
-    const renderCell = (row, col) => {
+    const renderCell = (row: number, col: number) => {
         const cellStyle: Record<string, string> = {
             width: "10px",
             height: "10px",
