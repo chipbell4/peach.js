@@ -20,12 +20,10 @@ const App = () => {
     return (
         <>
             <h1>Sprite Editor</h1>
-            <div className="flex-container">
-                <Palette startingColors={colors} onColorChange={setColors} onSelectColor={onSelectColor}/>
-                <div className="editor-column">
-                    <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColorIndex} palette={colors}/>
-                    <Code sprite={sprite} />
-                </div>
+            <Palette startingColors={colors} onColorChange={setColors} onSelectColor={onSelectColor}/>
+            <div className="editor-column">
+                <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColorIndex} palette={colors}/>
+                <Code sprite={sprite} />
             </div>
         </>
     );

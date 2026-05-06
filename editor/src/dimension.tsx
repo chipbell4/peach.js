@@ -45,6 +45,9 @@ export const DimensionInput = (props: DimensionInputProps) => {
     return (
         <div>
             <NumberInput initial={w} onChange={onWidthChange} />
+            &nbsp;
+            &times;
+            &nbsp;
             <NumberInput initial={h} onChange={onHeightChange} />
         </div>
     );

@@ -29,8 +29,8 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
 
     const renderCell = (row: number, col: number) => {
         const cellStyle: Record<string, string> = {
-            width: "10px",
-            height: "10px",
+            width: "15px",
+            height: "15px",
             border: "1px solid #000",
             cursor: "pointer",
         }
