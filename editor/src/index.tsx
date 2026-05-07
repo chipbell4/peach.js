@@ -17,12 +17,16 @@ const App = () => {
     const width = 16;
     const [sprite, setSprite] = React.useState(Array.from({ length: height }, () => Array(width).fill(null)));
 
+    const handleLoadSprite = (loadedSprite: (number | null)[][]) => {
+        setSprite(loadedSprite);
+    };
+
     return (
         <>
             <h1>Sprite Editor</h1>
             <Palette startingColors={colors} onPaletteChange={setColors} onSelectColor={onSelectColor}/>
             <div className="editor-column">
-                <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColorIndex} palette={colors}/>
+                <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColorIndex} palette={colors} onLoadSprite={handleLoadSprite}/>
                 <Code sprite={sprite} />
             </div>
         </>

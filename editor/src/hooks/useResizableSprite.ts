@@ -5,6 +5,10 @@ type Bitmap = (number | null)[][];
 const useResizableSprite = (initialSprite: Bitmap, onSpriteChange: (s: Bitmap) => void) => {
     const [currentSprite, setSprite] = React.useState(initialSprite);
 
+    React.useEffect(() => {
+        setSprite(initialSprite);
+    }, [initialSprite]);
+
     const fill = (row: number, col: number, color: number | null) => {
         const newSprite = currentSprite.map((r, i) => r.map((c, j) => (i === row && j === col ? color : c)));
         setSprite(newSprite);

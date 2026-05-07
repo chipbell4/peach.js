@@ -32,6 +32,11 @@ export const DimensionInput = (props: DimensionInputProps) => {
     const [w, setW] = React.useState(props.initialWidth);
     const [h, setH] = React.useState(props.initialHeight);
 
+    React.useEffect(() => {
+        setW(props.initialWidth);
+        setH(props.initialHeight);
+    }, [props.initialWidth, props.initialHeight]);
+
     const onWidthChange = (w: number) => {
         setW(w);
         props.onChange(w, h);
