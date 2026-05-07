@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { DimensionInput } from './dimension';
 
@@ -15,7 +15,27 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
     const [mouseDown, setMouseDown] = React.useState(false);
     const [currentSprite, setSprite] = React.useState(sprite);
     const [activeColor, setActiveColor] = React.useState(color);
+    const [imageId, setImageId] = React.useState("");
 
+    useEffect(() => {
+        const rehash = async () => {
+            const serialized = JSON.stringify(currentSprite);
+            const encoder = new TextEncoder();
+            const buffer = encoder.encode(serialized);
+            
+            const outputBuffer = await window.crypto.subtle.digest("SHA-256", buffer);
+            const outputAsArray = new Uint8Array(outputBuffer);
+            const hash = [...outputAsArray]
+                .map(c => c.toString(16).padStart(2, '0'))
+                .join("");
+
+            setImageId(hash.substring(0, 16));
+        };
+
+        rehash();
+    }, [currentSprite]);
+
+    // TODO: do we need this?
     // silly nonsense to get React to re-render
     React.useEffect(() => {
         setActiveColor(color)
@@ -100,6 +120,9 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
     return (
         <div className="sprite-editor">
             <DimensionInput initialWidth={sprite[0].length} initialHeight={sprite.length} onChange={onDimensionsChange} />
+            <div>
+                Image Id: { imageId }
+            </div>
             <table className="sprite-grid" cellSpacing="0" onMouseDown={() => setMouseDown(true)} onMouseUp={() => setMouseDown(false)}>
                 <tbody>
                     { rows }
