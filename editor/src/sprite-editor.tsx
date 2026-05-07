@@ -67,18 +67,12 @@ const useResizableSprite = (initialSprite: Bitmap, onSpriteChange: (s: Bitmap) =
 
 const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"] }: SpriteEditorProps) => {
     const [currentSprite, fill, onDimensionsChange] = useResizableSprite(sprite, onSpriteChange);
-    const [activeColor, setActiveColor] = React.useState(color);
-    // TODO: do we need this?
-    // silly nonsense to get React to re-render
-    React.useEffect(() => {
-        setActiveColor(color)
-    }, [color]);
 
     return (
         <div className="sprite-editor">
             <DimensionInput initialWidth={sprite[0].length} initialHeight={sprite.length} onChange={onDimensionsChange} />
             <ImageIdDisplay sprite={currentSprite} />
-            <SpriteGrid sprite={currentSprite} palette={palette} onCellFill={(row, col) => fill(row, col, activeColor)} />
+            <SpriteGrid sprite={currentSprite} palette={palette} onCellFill={(row, col) => fill(row, col, color)} />
         </div>
     );
 }
