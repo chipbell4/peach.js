@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { DimensionInput } from './dimension';
-import useImageHash from './useImageHash';
+import ImageIdDisplay from './ImageIdDisplay';
+import SpriteGrid from './SpriteGrid';
 
 type Bitmap = (number | null)[][];
 
@@ -13,11 +14,8 @@ interface SpriteEditorProps {
 }
 
 const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"] }: SpriteEditorProps) => {
-    const [mouseDown, setMouseDown] = React.useState(false);
     const [currentSprite, setSprite] = React.useState(sprite);
     const [activeColor, setActiveColor] = React.useState(color);
-    const imageId = useImageHash(currentSprite);
-
     // TODO: do we need this?
     // silly nonsense to get React to re-render
     React.useEffect(() => {
@@ -28,30 +26,6 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
         const newSprite = currentSprite.map((r, i) => r.map((c, j) => (i === row && j === col ? activeColor : c)));
         setSprite(newSprite);
         onSpriteChange(newSprite);
-    };
-
-    const renderCell = (row: number, col: number) => {
-        const cellStyle: Record<string, string> = {
-            width: "15px",
-            height: "15px",
-            border: "1px solid #000",
-            cursor: "pointer",
-        }
-
-        if (currentSprite[row][col] !== null) {
-            cellStyle.backgroundColor = palette[currentSprite[row][col]];
-        }
-
-        return (
-            <td
-                key={`${row}-${col}`}
-                className="sprite-cell"
-                style={ cellStyle }
-                onClick={() => fill(row, col)}
-                onMouseDown={() => fill(row, col)}
-                onMouseEnter={() => mouseDown && fill(row, col)}
-            />
-        );
     };
 
     const onDimensionsChange = (w: number, h: number) => {
@@ -94,23 +68,11 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
         setSprite(newSprite);
     };
 
-    const rows = Array.from({ length: currentSprite.length }, (_, rowIndex) => (
-        <tr key={rowIndex}>
-            {currentSprite[rowIndex].map((_, colIndex) => renderCell(rowIndex, colIndex))}
-        </tr>
-    ));
-
     return (
         <div className="sprite-editor">
             <DimensionInput initialWidth={sprite[0].length} initialHeight={sprite.length} onChange={onDimensionsChange} />
-            <div>
-                Image Id: { imageId }
-            </div>
-            <table className="sprite-grid" cellSpacing="0" onMouseDown={() => setMouseDown(true)} onMouseUp={() => setMouseDown(false)}>
-                <tbody>
-                    { rows }
-                </tbody>
-            </table>
+            <ImageIdDisplay sprite={currentSprite} />
+            <SpriteGrid sprite={currentSprite} palette={palette} onCellFill={fill} />
         </div>
     );
 }
