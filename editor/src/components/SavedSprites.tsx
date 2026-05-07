@@ -25,8 +25,10 @@ const SavedSprites = ({ onLoadSprite, refreshTrigger }: SavedSpritesProps) => {
     };
 
     const handleDeleteSprite = (imageId: string) => {
-        deleteSprite(imageId);
-        setSpriteIds(spriteIds.filter(id => id !== imageId));
+        if (window.confirm(`Delete sprite "${imageId}"?`)) {
+            deleteSprite(imageId);
+            setSpriteIds(spriteIds.filter(id => id !== imageId));
+        }
     };
 
     if (spriteIds.length === 0) {
