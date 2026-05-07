@@ -35,4 +35,5 @@ const ImageIdDisplay = ({ sprite }: ImageIdDisplayProps) => {
     return <div>Image Id: {imageId}</div>;
 };
 
+export { useImageHash };
 export default ImageIdDisplay;
