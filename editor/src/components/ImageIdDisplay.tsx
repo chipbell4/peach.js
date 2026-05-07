@@ -1,15 +1,23 @@
 import React from 'react';
-import { useImageHash } from '../hooks/useImageHash';
-
-type Bitmap = (number | null)[][];
 
 interface ImageIdDisplayProps {
-    sprite: Bitmap;
+    spriteName: string;
+    onSpriteNameChange: (name: string) => void;
 }
 
-const ImageIdDisplay = ({ sprite }: ImageIdDisplayProps) => {
-    const imageId = useImageHash(sprite);
-    return <div>Image Id: {imageId}</div>;
+const ImageIdDisplay = ({ spriteName, onSpriteNameChange }: ImageIdDisplayProps) => {
+    return (
+        <div className="image-id-display">
+            <label htmlFor="sprite-name">Sprite Name:</label>
+            <input
+                id="sprite-name"
+                type="text"
+                value={spriteName}
+                onChange={(e) => onSpriteNameChange(e.target.value)}
+                placeholder="Enter sprite name"
+            />
+        </div>
+    );
 };
 
 export default ImageIdDisplay;

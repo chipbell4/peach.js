@@ -4,7 +4,6 @@ import { DimensionInput } from './dimension';
 import ImageIdDisplay from './ImageIdDisplay';
 import SpriteGrid from './SpriteGrid';
 import SavedSprites from './SavedSprites';
-import { useImageHash } from '../hooks/useImageHash';
 import { useResizableSprite } from '../hooks/useResizableSprite';
 import useSpriteStorage from '../hooks/useSpriteStorage';
 
@@ -20,16 +19,19 @@ interface SpriteEditorProps {
 
 const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"], onLoadSprite }: SpriteEditorProps) => {
     const [currentSprite, fill, onDimensionsChange] = useResizableSprite(sprite, onSpriteChange);
+    const [spriteName, setSpriteName] = React.useState('');
     const [saveCount, setSaveCount] = React.useState(0);
-    const imageId = useImageHash(currentSprite);
     const { saveSprite } = useSpriteStorage();
 
     const handleSaveSprite = () => {
-        saveSprite(imageId, currentSprite);
-        setSaveCount(saveCount + 1);
+        if (spriteName.trim()) {
+            saveSprite(spriteName, currentSprite);
+            setSaveCount(saveCount + 1);
+        }
     };
 
-    const handleLoadSpriteFromStorage = (_imageId: string, loadedSprite: Bitmap) => {
+    const handleLoadSpriteFromStorage = (imageId: string, loadedSprite: Bitmap) => {
+        setSpriteName(imageId);
         if (onLoadSprite) {
             onLoadSprite(loadedSprite);
         }
@@ -38,8 +40,8 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
     return (
         <div className="sprite-editor">
             <DimensionInput initialWidth={sprite[0].length} initialHeight={sprite.length} onChange={onDimensionsChange} />
-            <ImageIdDisplay sprite={currentSprite} />
-            <button onClick={handleSaveSprite}>Save Sprite</button>
+            <ImageIdDisplay spriteName={spriteName} onSpriteNameChange={setSpriteName} />
+            <button onClick={handleSaveSprite} disabled={!spriteName.trim()}>Save Sprite</button>
             <SpriteGrid sprite={currentSprite} palette={palette} onCellFill={(row, col) => fill(row, col, color)} />
             <SavedSprites onLoadSprite={handleLoadSpriteFromStorage} refreshTrigger={saveCount} />
         </div>
