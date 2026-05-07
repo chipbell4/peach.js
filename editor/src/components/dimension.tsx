@@ -5,11 +5,6 @@ export interface NumberInputProps {
     onChange?: (x: number) => void;
 }
 
-export interface NumberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    initial: number;
-    onChange?: (x: number) => void;
-}
-
 export const NumberInput = (props: NumberInputProps) => {
     const [value, setValue] = React.useState(props.initial);
     const { onChange, initial, ...inputProps } = props;
