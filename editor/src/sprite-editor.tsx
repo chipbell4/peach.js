@@ -13,17 +13,11 @@ interface SpriteEditorProps {
     palette: string[];
 }
 
-const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"] }: SpriteEditorProps) => {
-    const [currentSprite, setSprite] = React.useState(sprite);
-    const [activeColor, setActiveColor] = React.useState(color);
-    // TODO: do we need this?
-    // silly nonsense to get React to re-render
-    React.useEffect(() => {
-        setActiveColor(color)
-    }, [color]);
+const useResizableSprite = (initialSprite: Bitmap, onSpriteChange: (s: Bitmap) => void) => {
+    const [currentSprite, setSprite] = React.useState(initialSprite);
 
-    const fill = (row: number, col: number) => {
-        const newSprite = currentSprite.map((r, i) => r.map((c, j) => (i === row && j === col ? activeColor : c)));
+    const fill = (row: number, col: number, color: number | null) => {
+        const newSprite = currentSprite.map((r, i) => r.map((c, j) => (i === row && j === col ? color : c)));
         setSprite(newSprite);
         onSpriteChange(newSprite);
     };
@@ -68,11 +62,23 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
         setSprite(newSprite);
     };
 
+    return [currentSprite, fill, onDimensionsChange] as const;
+};
+
+const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = null, palette = ["#f00"] }: SpriteEditorProps) => {
+    const [currentSprite, fill, onDimensionsChange] = useResizableSprite(sprite, onSpriteChange);
+    const [activeColor, setActiveColor] = React.useState(color);
+    // TODO: do we need this?
+    // silly nonsense to get React to re-render
+    React.useEffect(() => {
+        setActiveColor(color)
+    }, [color]);
+
     return (
         <div className="sprite-editor">
             <DimensionInput initialWidth={sprite[0].length} initialHeight={sprite.length} onChange={onDimensionsChange} />
             <ImageIdDisplay sprite={currentSprite} />
-            <SpriteGrid sprite={currentSprite} palette={palette} onCellFill={fill} />
+            <SpriteGrid sprite={currentSprite} palette={palette} onCellFill={(row, col) => fill(row, col, activeColor)} />
         </div>
     );
 }
