@@ -5,19 +5,25 @@ export interface NumberInputProps {
     onChange?: (x: number) => void;
 }
 
+export interface NumberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    initial: number;
+    onChange?: (x: number) => void;
+}
+
 export const NumberInput = (props: NumberInputProps) => {
     const [value, setValue] = React.useState(props.initial);
+    const { onChange, initial, ...inputProps } = props;
 
     const onValueChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (e) => {
         setValue(e.target.valueAsNumber);
 
-        if (props.onChange) {
-            props.onChange(e.target.valueAsNumber);
+        if (onChange) {
+            onChange(e.target.valueAsNumber);
         }
     };
 
     return (
-        <input type="number" value={value} onChange={onValueChange} />
+        <input type="number" value={value} onChange={onValueChange} className="dimension-input" {...inputProps} />
     )
 }
 
@@ -48,12 +54,12 @@ export const DimensionInput = (props: DimensionInputProps) => {
     }
 
     return (
-        <div>
-            <NumberInput initial={w} onChange={onWidthChange} />
+        <div className="dimension-container">
+            <NumberInput initial={w} onChange={onWidthChange} min={2} max={32} />
             &nbsp;
-            &times;
+            <span className="dimension-separator">&times;</span>
             &nbsp;
-            <NumberInput initial={h} onChange={onHeightChange} />
+            <NumberInput initial={h} onChange={onHeightChange} min={2} max={32} />
         </div>
     );
 };
