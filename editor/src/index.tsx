@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 
 import { Palette } from './components/palette';
 import SpriteEditor from './components/sprite-editor';
-import Code from './components/code';
 
 const App = () => {
     const [colors, setColors] = React.useState(["#ff0000", "#00ff00", "#0000ff"]);
@@ -24,10 +23,13 @@ const App = () => {
     return (
         <>
             <h1>Sprite Editor</h1>
-            <Palette startingColors={colors} onPaletteChange={setColors} onSelectColor={onSelectColor}/>
-            <div className="editor-column">
-                <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColorIndex} palette={colors} onLoadSprite={handleLoadSprite}/>
-                <Code sprite={sprite} />
+            <div className="page-layout">
+                <div className="sidebar">
+                    <Palette startingColors={colors} onPaletteChange={setColors} onSelectColor={onSelectColor}/>
+                </div>
+                <div className="editor-column">
+                    <SpriteEditor sprite={sprite} onSpriteChange={setSprite} color={workingColorIndex} palette={colors} onLoadSprite={handleLoadSprite}/>
+                </div>
             </div>
         </>
     );

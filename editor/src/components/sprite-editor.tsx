@@ -6,6 +6,7 @@ import SpriteGrid from './SpriteGrid';
 import SavedSprites from './SavedSprites';
 import { useResizableSprite } from '../hooks/useResizableSprite';
 import useSpriteStorage from '../hooks/useSpriteStorage';
+import Code from './code';
 
 type Bitmap = (number | null)[][];
 
@@ -43,6 +44,7 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
             <ImageIdDisplay spriteName={spriteName} onSpriteNameChange={setSpriteName} />
             <button onClick={handleSaveSprite} disabled={!spriteName.trim()}>Save Sprite</button>
             <SpriteGrid sprite={currentSprite} palette={palette} onCellFill={(row, col) => fill(row, col, color)} />
+            <Code sprite={currentSprite} />
             <SavedSprites onLoadSprite={handleLoadSpriteFromStorage} refreshTrigger={saveCount} />
         </div>
     );
