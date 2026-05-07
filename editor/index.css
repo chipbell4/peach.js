@@ -1,8 +1,42 @@
+/* Color Schemes Available
+   Option 1 (Current - Warm Peach & Cream): Soft & Friendly
+   Option 2 (Peach & Sage): --primary: #FFAD84, --accent: #C9E4D4, --bg: #F9F6F3, --border: #E6D5CC, --text: #3D3D3D
+   Option 3 (Peach & Teal): --primary: #FFAA7F, --accent: #6DD5E8, --bg: #FFF9F7, --border: #FFB399, --text: #1A1A1A
+*/
+
+:root {
+  /* Light Mode - Option 1: Warm Peach & Cream */
+  --color-primary: #FFB88C;
+  --color-accent: #FFE4C4;
+  --color-bg-primary: #FFF5EE;
+  --color-bg-secondary: #FFFBF7;
+  --color-border: #FFD4A3;
+  --color-border-selected: #FF8C42;
+  --color-text: #2C2C2C;
+  --color-text-secondary: #666666;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Mode - Option 1: Warm Peach & Cream */
+    --color-primary: #D97F4F;
+    --color-accent: #E8D4B8;
+    --color-bg-primary: #2A1F18;
+    --color-bg-secondary: #3D2C23;
+    --color-border: #B8825C;
+    --color-border-selected: #FFB88C;
+    --color-text: #F5E8DC;
+    --color-text-secondary: #D4B8A0;
+  }
+}
+
 body {
     max-width: 1800px;
     margin-left: auto;
     margin-right: auto;
     font-family: sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-bg-primary);
 }
 
 .flex-container {
@@ -41,7 +75,8 @@ h1, h2, h3 {
 
 .palette {
     padding: 1em;
-    background-color: #ddd;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
 
     display: flex;
     flex-direction: column;
@@ -51,32 +86,76 @@ h1, h2, h3 {
 .palette button.add {
     font-size: 20px;
     display: block;
+    width: 100%;
+    padding: 0.75em;
+    border: 2px dashed var(--color-border);
+    border-radius: 0.5em;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.palette button.add:hover {
+    background-color: var(--color-accent);
+    border-style: solid;
 }
 
 .palette .color-picker-container {
-    margin: 0.75em;
-    border: 2px solid #ccc;
-    padding: 0.25em;
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.75em;
+    margin: 0;
+    border: 2px solid var(--color-border);
+    background-color: var(--color-bg-primary);
     cursor: pointer;
+    border-radius: 0.5em;
+    transition: all 0.2s ease;
+}
+
+.palette .color-picker-container:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .palette .color-picker-container.selected {
-    border-color: #000;
+    border-color: var(--color-border-selected);
+    box-shadow: 0 0 0 3px var(--color-primary, rgba(255, 170, 127, 0.3));
 }
 
 .palette .color-picker-container button.remove {
-    margin-left: 1.5em;
+    margin-left: auto;
+    padding: 0.4em 0.6em;
+    border: none;
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    border-radius: 0.3em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.palette .color-picker-container button.remove:hover {
+    background-color: var(--color-border-selected);
 }
 
 .sprite-grid {
     border-spacing: 0;
     border-collapse: collapse;
+    border: 1px solid var(--color-border);
+}
+
+.sprite-grid th,
+.sprite-grid td {
+    border: 1px solid var(--color-border);
 }
 
 .code-container .rendered-code {
     margin: 0.5em;
     padding: 0.5em;
-    border: 2px solid #ccc;
+    border: 2px solid var(--color-border);
+    border-radius: 0.5em;
+    background-color: var(--color-bg-secondary);
     max-height: 15em;
     overflow-y: auto;
     max-width: 30em;
