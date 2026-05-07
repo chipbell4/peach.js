@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { Palette } from './palette';
-import SpriteEditor from './sprite-editor';
-import Code from './code';
+import { Palette } from './components/palette';
+import SpriteEditor from './components/sprite-editor';
+import Code from './components/code';
 
 const App = () => {
     const [colors, setColors] = React.useState(["#ff0000", "#00ff00", "#0000ff"]);

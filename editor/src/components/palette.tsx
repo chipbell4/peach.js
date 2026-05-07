@@ -54,7 +54,7 @@ export const Palette = ({ startingColors = ["#ff0000"], onPaletteChange: onColor
     const onSelectErase = () => {
         setSelectedColor(null);
         onSelectColor(null);
-    }
+    };
 
     const eraseContainerClass = selectedColor === null ? "color-picker-container selected" : "color-picker-container";
 
@@ -75,11 +75,13 @@ export const Palette = ({ startingColors = ["#ff0000"], onPaletteChange: onColor
 interface PreviewProps {
     colors: string[];
 }
-const Preview = (props: PreviewProps) => {
+
+export const Preview = (props: PreviewProps) => {
     const squares = props.colors.map((c, i) => {
         const style = {
-            backgroundColor: c;
-        }
+            backgroundColor: c,
+        };
+        
         return (
             <span key={i} style={style}>
                 &nbsp;
@@ -88,8 +90,31 @@ const Preview = (props: PreviewProps) => {
     });
 
     return (
-        <>
-        { squares }
-        </>
+        <div className='palette-preview'>
+            { squares }
+        </div>
     );
+}
+
+const PALETTE_STORAGE_KEY = "palettes";
+
+export const SavedPalettes = () => {
+    const [palettes, setPalettes] = React.useState<string[][]>(() => {
+        const stored = localStorage.getItem(PALETTE_STORAGE_KEY);
+        return stored ? JSON.parse(stored) : [];
+    });
+
+    React.useEffect(() => {
+        localStorage.setItem(PALETTE_STORAGE_KEY, JSON.stringify(palettes));
+    }, [palettes]);
+
+    const previews = palettes.map((p, i) => {
+        return <Preview key={i} colors={p} />
+    });
+
+    return (
+        <>
+        { previews }
+        </>
+    )
 }

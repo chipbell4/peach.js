@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Bitmap = (number | null)[][];
 
@@ -26,14 +26,4 @@ const useImageHash = (sprite: Bitmap): string => {
     return imageId;
 };
 
-interface ImageIdDisplayProps {
-    sprite: Bitmap;
-}
-
-const ImageIdDisplay = ({ sprite }: ImageIdDisplayProps) => {
-    const imageId = useImageHash(sprite);
-    return <div>Image Id: {imageId}</div>;
-};
-
 export { useImageHash };
-export default ImageIdDisplay;
