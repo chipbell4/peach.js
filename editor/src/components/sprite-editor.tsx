@@ -40,7 +40,7 @@ const SpriteEditor = ({ sprite = [[null]], onSpriteChange = (s) => {}, color = n
 
     return (
         <div className="sprite-editor">
-            <DimensionInput initialWidth={sprite[0].length} initialHeight={sprite.length} onChange={onDimensionsChange} />
+            <DimensionInput initialWidth={currentSprite[0].length} initialHeight={currentSprite.length} onChange={onDimensionsChange} />
             <ImageIdDisplay spriteName={spriteName} onSpriteNameChange={setSpriteName} />
             <SpriteGrid sprite={currentSprite} palette={palette} onCellFill={(row, col) => fill(row, col, color)} />
             <button className="save-sprite-button" onClick={handleSaveSprite} disabled={!spriteName.trim()}>Save Sprite</button>

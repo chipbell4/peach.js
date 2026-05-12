@@ -9,6 +9,10 @@ export const NumberInput = (props: NumberInputProps) => {
     const [value, setValue] = React.useState(props.initial);
     const { onChange, initial, ...inputProps } = props;
 
+    React.useEffect(() => {
+        setValue(props.initial);
+    }, [props.initial]);
+
     const onValueChange: React.ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (e) => {
         setValue(e.target.valueAsNumber);
 
