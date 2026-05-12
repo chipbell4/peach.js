@@ -5,7 +5,10 @@ import { Palette } from './components/palette';
 import SpriteEditor from './components/sprite-editor';
 
 const App = () => {
-    const [colors, setColors] = React.useState(["#ff0000", "#00ff00", "#0000ff"]);
+    const [colors, setColors] = React.useState<string[]>(() => {
+        const stored = localStorage.getItem("currentPalette");
+        return stored ? JSON.parse(stored) : ["#ff0000", "#00ff00", "#0000ff"];
+    });
     const [workingColorIndex, setWorkingColorIndex] = React.useState<number | null>(null);
 
     const onSelectColor = (index: number | null) => {
