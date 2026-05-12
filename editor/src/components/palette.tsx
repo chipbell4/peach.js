@@ -8,9 +8,18 @@ interface PaletteProps {
 
 type Handler = React.ChangeEventHandler<HTMLInputElement, HTMLInputElement>;
 
+const CURRENT_PALETTE_KEY = "currentPalette";
+
 export const Palette = ({ startingColors = ["#ff0000"], onPaletteChange: onColorChange = function(colors) {}, onSelectColor = function(color) {} }: PaletteProps) => {
-    const [colors, setColors] = React.useState(startingColors);
+    const [colors, setColors] = React.useState<string[]>(() => {
+        const stored = localStorage.getItem(CURRENT_PALETTE_KEY);
+        return stored ? JSON.parse(stored) : startingColors;
+    });
     const [selectedColor, setSelectedColor] = React.useState<number | null>(null);
+
+    React.useEffect(() => {
+        localStorage.setItem(CURRENT_PALETTE_KEY, JSON.stringify(colors));
+    }, [colors]);
 
     const pickers = colors.map((color, index) => {
         const onSelect = () => {
