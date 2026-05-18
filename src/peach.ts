@@ -72,7 +72,7 @@ export class Peach {
           continue;
         }
 
-        if (sprite.y + i >= this.width) {
+        if (sprite.y + i >= this.height) {
           break;
         }
 
@@ -81,7 +81,7 @@ export class Peach {
             continue;
           }
 
-          if (sprite.x + j >= this.height) {
+          if (sprite.x + j >= this.width) {
             break;
           }
 
